@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html class="light" lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Đơn hàng')}"></head>
+<body class="bg-background text-on-surface font-body antialiased">
+<header th:replace="~{fragments/layout :: header}"></header>
+<main class="pt-32 pb-24 px-8 max-w-[1440px] mx-auto min-h-screen">
+<header class="mb-16">
+<h1 class="text-5xl font-extrabold font-headline tracking-tight text-on-surface">Đơn hàng của bạn</h1>
+<p class="text-on-surface-variant mt-2 font-body" th:if="${orders != null and !orders.isEmpty()}" th:text="'Bạn có ' + ${orders.size()} + ' đơn hàng.'">Bạn có đơn hàng.</p>
+<p class="text-on-surface-variant mt-2 font-body" th:if="${orders == null or orders.isEmpty()}">Bạn chưa có đơn hàng nào.</p>
+</header>
+<!-- Flash Messages -->
+<div th:if="${successMessage}" class="mb-8 p-4 bg-green-50 border border-green-200 rounded-xl flex items-center gap-3">
+<span class="material-symbols-outlined text-green-600">check_circle</span>
+<p class="text-green-800 font-medium" th:text="${successMessage}"></p>
+</div>
+<div th:if="${errorMessage}" class="mb-8 p-4 bg-error-container rounded-xl flex items-center gap-3">
+<span class="material-symbols-outlined text-error">error</span>
+<p class="text-on-error-container font-medium" th:text="${errorMessage}"></p>
+</div>
+<!-- Empty State -->
+<div th:if="${orders == null or orders.isEmpty()}" class="text-center py-20">
+<span class="material-symbols-outlined text-8xl text-outline mb-6" style="font-variation-settings: 'FILL' 0, 'wght' 300;">receipt_long</span>
+<h2 class="text-2xl font-bold font-headline mb-4">Chưa có đơn hàng nào</h2>
+<p class="text-on-surface-variant mb-8">Hãy khám phá các sản phẩm tuyệt vời của chúng tôi!</p>
+<a th:href="@{/home}" class="inline-block bg-primary text-on-primary px-8 py-4 rounded-full font-bold text-lg hover:bg-primary-container transition-all shadow-lg shadow-primary/20">Mua sắm ngay</a>
+</div>
+<!-- Order List -->
+<div th:if="${orders != null and !orders.isEmpty()}" class="space-y-8">
+<div th:each="order : ${orders}" class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
+<!-- Order Header -->
+<div class="flex flex-wrap items-center justify-between gap-4 p-6 bg-surface-container-low border-b border-outline-variant/20">
+<div class="flex items-center gap-6">
+<div>
+<span class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Mã đơn</span>
+<p class="font-bold font-headline text-lg" th:text="'#' + ${order.id}">#0</p>
+</div>
+<div>
+<span class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Ngày đặt</span>
+<p class="font-medium" th:text="${#temporals.format(order.createdDate, 'dd/MM/yyyy HH:mm')}">01/01/2024</p>
+</div>
+<div>
+<span class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Tổng tiền</span>
+<p class="font-black text-primary font-headline" th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT')} + ' VND'">0 VND</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<!-- Status Badge -->
+<span th:switch="${order.status.name()}">
+<span th:case="'PENDING'" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-amber-50 text-amber-700 text-sm font-bold">
+<span class="w-2 h-2 rounded-full bg-amber-500"></span> Chờ xử lý
+</span>
+<span th:case="'CONFIRMED'" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-sm font-bold">
+<span class="w-2 h-2 rounded-full bg-blue-500"></span> Đã xác nhận
+</span>
+<span th:case="'SHIPPING'" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-indigo-50 text-indigo-700 text-sm font-bold">
+<span class="w-2 h-2 rounded-full bg-indigo-500"></span> Đang giao
+</span>
+<span th:case="'DELIVERED'" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-green-50 text-green-700 text-sm font-bold">
+<span class="w-2 h-2 rounded-full bg-green-500"></span> Đã giao
+</span>
+<span th:case="'CANCELLED'" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-red-50 text-red-700 text-sm font-bold">
+<span class="w-2 h-2 rounded-full bg-red-500"></span> Đã hủy
+</span>
+</span>
+<!-- Cancel Button -->
+<form th:if="${order.canBeCancelled()}" th:action="@{/orders/{id}/cancel(id=${order.id})}" method="post"
+      onsubmit="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này?');">
+<button type="submit" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-50 text-red-700 text-sm font-bold hover:bg-red-100 transition-colors">
+<span class="material-symbols-outlined text-base">cancel</span> Hủy đơn
+</button>
+</form>
+</div>
+</div>
+<!-- Order Details -->
+<div class="p-6 space-y-4">
+<div class="flex flex-wrap gap-6 text-sm text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-base">person</span>
+<span th:text="${order.fullName}">Name</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-base">phone</span>
+<span th:text="${order.phone}">Phone</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-base">location_on</span>
+<span th:text="${order.address}">Address</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-base">payments</span>
+<span th:text="${order.paymentMethod.displayName}">Payment</span>
+</div>
+</div>
+<!-- Order Items -->
+<div class="mt-4 border-t border-outline-variant/20 pt-4">
+<div th:each="detail : ${order.orderDetails}" class="flex items-center gap-4 py-3">
+<div class="w-12 h-14 bg-surface-container rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" th:src="${detail.product.image}" th:alt="${detail.product.name}"/>
+</div>
+<div class="flex-grow">
+<p class="font-bold text-sm" th:text="${detail.product.name}">Product</p>
+<p class="text-xs text-on-surface-variant">
+<span th:if="${detail.size != null}" th:text="'Size: ' + ${detail.size}"></span>
+<span th:if="${detail.size != null and detail.color != null}"> | </span>
+<span th:if="${detail.color != null}" th:text="'Color: ' + ${detail.color}"></span>
+<span th:text="' x ' + ${detail.quantity}"></span>
+</p>
+</div>
+<span class="font-bold text-sm text-primary" th:text="${#numbers.formatDecimal(detail.subtotal, 0, 'COMMA', 0, 'POINT')} + ' VND'">0 VND</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body></html>

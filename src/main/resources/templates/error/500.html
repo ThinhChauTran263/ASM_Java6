@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html class="light" lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Lỗi hệ thống')}"></head>
+<body class="bg-surface text-on-surface font-body antialiased">
+<header th:replace="~{fragments/layout :: header}"></header>
+<main class="pt-32 pb-24 px-8 max-w-[1440px] mx-auto min-h-screen flex items-center justify-center">
+<div class="text-center max-w-lg">
+<span class="material-symbols-outlined text-9xl text-error mb-6" style="font-size: 120px; font-variation-settings: 'FILL' 0, 'wght' 200;">error</span>
+<h1 class="text-6xl font-extrabold font-headline text-error mb-4" th:text="${status} ?: '500'">500</h1>
+<h2 class="text-2xl font-bold font-headline mb-4" th:text="${error} ?: 'Lỗi hệ thống'">Lỗi hệ thống</h2>
+<p class="text-on-surface-variant mb-8" th:text="${message} ?: 'Đã xảy ra lỗi không mong muốn. Vui lòng thử lại sau.'">Đã xảy ra lỗi không mong muốn. Vui lòng thử lại sau.</p>
+<div class="flex gap-4 justify-center">
+<a th:href="@{/home}" class="inline-block bg-primary text-on-primary px-8 py-4 rounded-full font-bold text-lg hover:bg-primary-container transition-all shadow-lg shadow-primary/20">Về trang chủ</a>
+<button onclick="window.location.reload()" class="inline-block border-2 border-primary text-primary px-8 py-4 rounded-full font-bold text-lg hover:bg-primary-fixed/30 transition-all">Thử lại</button>
+</div>
+</div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>
