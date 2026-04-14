@@ -1,0 +1,4 @@
+# ASM JAVA 6 RULES
+You are an expert Java Spring Boot developer. 
+ALWAYS use GitNexus tools (`impact`, `context`, `query`) before proposing any code changes to ensure you follow the existing architecture of `poly.edu.asm_final_java6`.
+Check `pom.xml` for dependencies before adding new libraries.

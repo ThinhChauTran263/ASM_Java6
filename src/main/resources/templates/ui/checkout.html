@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Checkout | Digital Atelier</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "error": "#ba1a1a",
+              "tertiary-container": "#a93802",
+              "on-error": "#ffffff",
+              "surface-variant": "#e0e3e5",
+              "primary-container": "#0056d2",
+              "on-primary-fixed-variant": "#0040a1",
+              "on-tertiary-fixed-variant": "#812800",
+              "on-tertiary": "#ffffff",
+              "on-secondary-fixed-variant": "#3c475a",
+              "inverse-surface": "#2d3133",
+              "on-secondary-container": "#586377",
+              "error-container": "#ffdad6",
+              "on-primary": "#ffffff",
+              "on-error-container": "#93000a",
+              "outline": "#737785",
+              "on-secondary": "#ffffff",
+              "on-primary-container": "#ccd8ff",
+              "inverse-on-surface": "#eff1f3",
+              "background": "#f7f9fb",
+              "tertiary": "#822800",
+              "surface-tint": "#0056d2",
+              "on-background": "#191c1e",
+              "on-secondary-fixed": "#111c2d",
+              "secondary": "#545f73",
+              "primary-fixed": "#dae2ff",
+              "outline-variant": "#c3c6d6",
+              "primary-fixed-dim": "#b2c5ff",
+              "on-surface": "#191c1e",
+              "on-tertiary-fixed": "#380d00",
+              "surface-dim": "#d8dadc",
+              "surface-container": "#eceef0",
+              "primary": "#0040a1",
+              "secondary-container": "#d5e0f8",
+              "tertiary-fixed": "#ffdbcf",
+              "surface-bright": "#f7f9fb",
+              "surface-container-highest": "#e0e3e5",
+              "surface-container-low": "#f2f4f6",
+              "secondary-fixed-dim": "#bcc7de",
+              "surface-container-high": "#e6e8ea",
+              "inverse-primary": "#b2c5ff",
+              "on-surface-variant": "#424654",
+              "secondary-fixed": "#d8e3fb",
+              "on-primary-fixed": "#001847",
+              "tertiary-fixed-dim": "#ffb59b",
+              "surface": "#f7f9fb",
+              "on-tertiary-container": "#ffcebd",
+              "surface-container-lowest": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4 { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl shadow-[0_20px_40px_rgba(25,28,30,0.06)]">
+<div class="flex justify-between items-center w-full px-8 py-4 max-w-[1440px] mx-auto">
+<a class="text-2xl font-extrabold tracking-tighter text-slate-900 dark:text-slate-50" href="home.html">Digital Atelier</a>
+<div class="hidden md:flex items-center gap-8 font-['Manrope'] tracking-tight text-sm font-medium">
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors duration-300" href="#">New Arrivals</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors duration-300" href="#">Collections</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors duration-300" href="#">Editorial</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors duration-300" href="#">About</a>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="scale-95 active:scale-90 transition-transform"><span class="material-symbols-outlined" data-icon="search">search</span></button>
+<button class="scale-95 active:scale-90 transition-transform relative">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+<span class="absolute -top-1 -right-1 bg-primary text-[10px] text-white w-4 h-4 rounded-full flex items-center justify-center">2</span>
+</button>
+</div>
+<div class="hidden md:flex items-center gap-4 font-['Manrope'] text-sm font-medium">
+<button class="text-slate-600 dark:text-slate-400 hover:text-blue-800 transition-colors">Login</button>
+<button class="bg-primary text-white px-6 py-2 rounded-full hover:bg-primary-container transition-colors scale-95 active:scale-90">Sign Up</button>
+</div>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-24 px-8 max-w-[1440px] mx-auto">
+<header class="mb-16">
+<h1 class="text-4xl font-extrabold tracking-tight text-on-surface mb-2">Checkout</h1>
+<p class="text-on-surface-variant font-body">Review your selection and provide delivery details.</p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+<!-- Left Column: Shipping & Payment -->
+<div class="lg:col-span-7 space-y-12">
+<!-- Shipping Section -->
+<section>
+<div class="flex items-center gap-3 mb-8">
+<span class="w-8 h-8 rounded-full bg-primary-fixed text-on-primary-fixed-variant flex items-center justify-center font-bold text-sm">1</span>
+<h2 class="text-2xl font-bold tracking-tight">Shipping Information</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant ml-1">Full Name</label>
+<input class="w-full bg-surface-container-high border-none rounded-DEFAULT px-4 py-3 focus:ring-2 focus:ring-primary/40 transition-all placeholder:text-outline-variant" placeholder="Alex Morgan" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant ml-1">Phone Number</label>
+<input class="w-full bg-surface-container-high border-none rounded-DEFAULT px-4 py-3 focus:ring-2 focus:ring-primary/40 transition-all placeholder:text-outline-variant" placeholder="+84 000 000 000" type="tel"/>
+</div>
+<div class="md:col-span-2 space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant ml-1">Email Address</label>
+<input class="w-full bg-surface-container-high border-none rounded-DEFAULT px-4 py-3 focus:ring-2 focus:ring-primary/40 transition-all placeholder:text-outline-variant" placeholder="alex@example.com" type="email"/>
+</div>
+<div class="md:col-span-2 space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant ml-1">Shipping Address</label>
+<textarea class="w-full bg-surface-container-high border-none rounded-DEFAULT px-4 py-3 focus:ring-2 focus:ring-primary/40 transition-all placeholder:text-outline-variant" placeholder="Street name, District, City..." rows="3"></textarea>
+</div>
+</div>
+</section>
+<!-- Payment Section -->
+<section>
+<div class="flex items-center gap-3 mb-8">
+<span class="w-8 h-8 rounded-full bg-primary-fixed text-on-primary-fixed-variant flex items-center justify-center font-bold text-sm">2</span>
+<h2 class="text-2xl font-bold tracking-tight">Payment Method</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Credit Card -->
+<label class="relative flex flex-col p-6 rounded-xl bg-surface-container-lowest cursor-pointer group hover:bg-white transition-all shadow-sm ring-1 ring-outline-variant/10 has-[:checked]:ring-primary has-[:checked]:bg-primary-fixed/10">
+<input checked="" class="absolute top-4 right-4 text-primary focus:ring-primary" name="payment" type="radio" value="card"/>
+<span class="material-symbols-outlined text-primary mb-4" data-icon="credit_card">credit_card</span>
+<span class="font-bold text-sm">Credit Card</span>
+<span class="text-xs text-on-surface-variant mt-1">Visa, Mastercard</span>
+</label>
+<!-- COD -->
+<label class="relative flex flex-col p-6 rounded-xl bg-surface-container-lowest cursor-pointer group hover:bg-white transition-all shadow-sm ring-1 ring-outline-variant/10 has-[:checked]:ring-primary has-[:checked]:bg-primary-fixed/10">
+<input class="absolute top-4 right-4 text-primary focus:ring-primary" name="payment" type="radio" value="cod"/>
+<span class="material-symbols-outlined text-secondary mb-4" data-icon="payments">payments</span>
+<span class="font-bold text-sm">COD</span>
+<span class="text-xs text-on-surface-variant mt-1">Cash on delivery</span>
+</label>
+<!-- Bank Transfer -->
+<label class="relative flex flex-col p-6 rounded-xl bg-surface-container-lowest cursor-pointer group hover:bg-white transition-all shadow-sm ring-1 ring-outline-variant/10 has-[:checked]:ring-primary has-[:checked]:bg-primary-fixed/10">
+<input class="absolute top-4 right-4 text-primary focus:ring-primary" name="payment" type="radio" value="bank"/>
+<span class="material-symbols-outlined text-secondary mb-4" data-icon="account_balance">account_balance</span>
+<span class="font-bold text-sm">Bank Transfer</span>
+<span class="text-xs text-on-surface-variant mt-1">Direct wire transfer</span>
+</label>
+</div>
+<!-- Conditional Card Details -->
+<div class="mt-8 p-8 rounded-xl bg-surface-container-low space-y-6">
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant ml-1">Card Number</label>
+<input class="w-full bg-surface-container-lowest border-none rounded-DEFAULT px-4 py-3 focus:ring-2 focus:ring-primary/40 transition-all" placeholder="0000 0000 0000 0000" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant ml-1">Expiry Date</label>
+<input class="w-full bg-surface-container-lowest border-none rounded-DEFAULT px-4 py-3 focus:ring-2 focus:ring-primary/40 transition-all" placeholder="MM / YY" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant ml-1">CVC</label>
+<input class="w-full bg-surface-container-lowest border-none rounded-DEFAULT px-4 py-3 focus:ring-2 focus:ring-primary/40 transition-all" placeholder="123" type="text"/>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Order Summary -->
+<div class="lg:col-span-5">
+<div class="sticky top-32 p-8 rounded-xl bg-surface-container-lowest shadow-[0_20px_40px_rgba(25,28,30,0.06)] space-y-8">
+<h2 class="text-2xl font-bold tracking-tight">Order Summary</h2>
+<!-- Item List -->
+<div class="space-y-6">
+<div class="flex gap-4">
+<div class="w-20 h-24 bg-surface-container rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="minimalist tailored beige wool blazer on a clean studio background with soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0tTiMhGBujp9P50WUPPnEJWv5yO63J3DFl2TsMP07zpY0N0Sf__tTKgxUl1iILehK2aDBh5Fbx6qCPKR6ts8uJhHWcBGg6rzgcTcExNu06NACWgzCRS78WjyOxWrNasgDyvfCtuDAbI_ccE5-CRN-cbCBEoZuDUsYVSqbnCa2aDT3tv3jcMLqYH3JlD4mHJe9OmqnuyOisRJPiXmzLeKuwaXd57x3g696dq8r9Vfqlug62Wrby245b0DcroD2urj1ym2t_NQ-V3Jb"/>
+</div>
+<div class="flex-grow flex flex-col justify-between py-1">
+<div>
+<h3 class="font-bold text-sm leading-tight text-on-surface">Structured Wool Blazer</h3>
+<p class="text-xs text-on-surface-variant mt-1">Size: M • Color: Sand</p>
+</div>
+<span class="font-bold text-primary text-sm">$285.00</span>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-20 h-24 bg-surface-container rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="premium minimalist leather sneakers in off-white sitting on a neutral concrete surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXyS-DqnZ3FEq_GFPwPx5_WYY1srSybvpOPUDWxwfedtx9lSbOIyXDoeVSEoC_WBJaUiuP6gUJJcTRrUH4MGADK2DYbvRRHalPLC7HAw_tdqbUTyrgYWDzBAcbcm6v5HPxvHFt5B7CbRWgC13y9Ime4sQTBZOzXBJK34nYgObqXle1MkUB9InGVgeHGnNS8Jg-cYSibPuSWV3bAri8H868rMOfhWCrhrR03FmdjtN6ZqbqGYb_-1YZHtwn_YpJLwF-MsFfZsfOUJgE"/>
+</div>
+<div class="flex-grow flex flex-col justify-between py-1">
+<div>
+<h3 class="font-bold text-sm leading-tight text-on-surface">Essential Leather Sneaker</h3>
+<p class="text-xs text-on-surface-variant mt-1">Size: 42 • Color: Ivory</p>
+</div>
+<span class="font-bold text-primary text-sm">$195.00</span>
+</div>
+</div>
+</div>
+<!-- Discount Code -->
+<div class="pt-8 border-t border-surface-variant">
+<div class="flex gap-2">
+<input class="flex-grow bg-surface-container-low border-none rounded-DEFAULT px-4 py-3 text-sm focus:ring-2 focus:ring-primary/40" placeholder="Discount Code" type="text"/>
+<button class="px-6 py-2 bg-secondary-container text-on-secondary-container rounded-DEFAULT text-sm font-bold hover:bg-secondary-fixed transition-colors">Apply</button>
+</div>
+</div>
+<!-- Totals -->
+<div class="space-y-3 pt-6">
+<div class="flex justify-between text-sm text-on-surface-variant">
+<span>Subtotal</span>
+<span>$480.00</span>
+</div>
+<div class="flex justify-between text-sm text-on-surface-variant">
+<span>Shipping</span>
+<span>$15.00</span>
+</div>
+<div class="flex justify-between text-sm text-tertiary font-medium">
+<span>Discount (WELCOME10)</span>
+<span>-$48.00</span>
+</div>
+<div class="flex justify-between items-center pt-4 border-t border-surface-variant">
+<span class="text-lg font-bold">Total</span>
+<span class="text-2xl font-black text-primary">$447.00</span>
+</div>
+</div>
+<a class="w-full py-5 bg-primary text-white rounded-xl text-lg font-extrabold tracking-tight hover:bg-primary-container transition-all scale-95 active:scale-90 shadow-lg shadow-primary/20 flex items-center justify-center" href="home.html">
+                        Đặt hàng ngay
+                    </a>
+<div class="flex items-center justify-center gap-2 text-xs text-on-surface-variant opacity-60">
+<span class="material-symbols-outlined text-sm" data-icon="lock">lock</span>
+<span>Secure SSL Encrypted Checkout</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-16 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
+<div class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+<div class="space-y-6">
+<div class="text-xl font-black text-slate-900 dark:text-slate-100">Digital Atelier</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                    Crafting the future of digital commerce through curated editorial experiences and architectural design principles.
+                </p>
+</div>
+<div class="space-y-6">
+<h4 class="font-['Inter'] text-xs uppercase tracking-widest text-slate-900 dark:text-white font-bold">Company</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-500 dark:text-slate-400 font-['Inter'] text-xs uppercase tracking-widest hover:text-blue-600 underline-offset-4 hover:underline transition-opacity" href="#">About Us</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 font-['Inter'] text-xs uppercase tracking-widest hover:text-blue-600 underline-offset-4 hover:underline transition-opacity" href="#">Sustainability</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 font-['Inter'] text-xs uppercase tracking-widest hover:text-blue-600 underline-offset-4 hover:underline transition-opacity" href="#">Careers</a></li>
+</ul>
+</div>
+<div class="space-y-6">
+<h4 class="font-['Inter'] text-xs uppercase tracking-widest text-slate-900 dark:text-white font-bold">Support</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-500 dark:text-slate-400 font-['Inter'] text-xs uppercase tracking-widest hover:text-blue-600 underline-offset-4 hover:underline transition-opacity" href="#">Privacy Policy</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 font-['Inter'] text-xs uppercase tracking-widest hover:text-blue-600 underline-offset-4 hover:underline transition-opacity" href="#">Terms of Service</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 font-['Inter'] text-xs uppercase tracking-widest hover:text-blue-600 underline-offset-4 hover:underline transition-opacity" href="#">Shipping</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 font-['Inter'] text-xs uppercase tracking-widest hover:text-blue-600 underline-offset-4 hover:underline transition-opacity" href="#">Returns</a></li>
+</ul>
+</div>
+<div class="space-y-6">
+<h4 class="font-['Inter'] text-xs uppercase tracking-widest text-slate-900 dark:text-white font-bold">Newsletter</h4>
+<div class="flex">
+<input class="bg-white dark:bg-slate-800 border-none rounded-l-lg px-4 py-2 w-full text-xs" placeholder="Your email" type="text"/>
+<button class="bg-blue-700 text-white px-4 py-2 rounded-r-lg text-xs font-bold hover:bg-blue-800 transition-colors">Join</button>
+</div>
+<p class="text-slate-400 text-[10px] leading-tight">© 2024 Digital Atelier. All Rights Reserved.</p>
+</div>
+</div>
+</footer>
+</body></html>
