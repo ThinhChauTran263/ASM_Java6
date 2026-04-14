@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html class="light" lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Hồ sơ cá nhân')}"></head>
+<body class="bg-surface text-on-surface font-body antialiased">
+<header th:replace="~{fragments/layout :: header}"></header>
+<main class="pt-32 pb-24 px-8 max-w-[1440px] mx-auto min-h-screen">
+<div class="max-w-2xl mx-auto">
+<header class="mb-12">
+<h1 class="text-4xl font-extrabold font-headline tracking-tight text-on-surface">Hồ sơ cá nhân</h1>
+<p class="text-on-surface-variant mt-2">Quản lý thông tin tài khoản của bạn.</p>
+</header>
+
+<!-- Flash Messages -->
+<div th:replace="~{fragments/layout :: flash-messages}"></div>
+
+<!-- User Info Card -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-sm mb-8">
+<div class="flex items-center gap-6 mb-8 pb-8 border-b border-outline-variant/20">
+<div class="w-20 h-20 rounded-full bg-primary-fixed flex items-center justify-center">
+<span th:if="${user.imageUrl != null}" class="w-full h-full rounded-full overflow-hidden">
+<img th:src="${user.imageUrl}" alt="Avatar" class="w-full h-full object-cover"/>
+</span>
+<span th:if="${user.imageUrl == null}" class="material-symbols-outlined text-4xl text-primary">account_circle</span>
+</div>
+<div>
+<h2 class="text-xl font-bold font-headline" th:text="${user.fullName}">User Name</h2>
+<p class="text-on-surface-variant text-sm" th:text="${user.email}">email@example.com</p>
+<span th:if="${user.provider != null}" class="inline-flex items-center gap-1 mt-1 px-3 py-1 bg-primary-fixed text-on-primary-fixed-variant text-xs font-bold rounded-full">
+<span class="material-symbols-outlined text-sm">link</span>
+<span th:text="'Liên kết với ' + ${user.provider}">OAuth</span>
+</span>
+</div>
+</div>
+
+<!-- Profile Update Form -->
+<form th:action="@{/profile/update}" th:object="${profileForm}" method="post" class="space-y-6">
+<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant ml-1">Họ và tên</label>
+<input th:field="*{fullName}" class="w-full bg-surface-container-high border-none rounded-lg px-5 py-4 focus:ring-2 focus:ring-primary/40 transition-all placeholder:text-outline/50 text-sm" placeholder="Nhập họ tên" type="text"/>
+<p th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" class="text-error text-xs mt-1"></p>
+</div>
+
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant ml-1">Email</label>
+<input th:value="${user.email}" class="w-full bg-surface-container border-none rounded-lg px-5 py-4 text-sm text-on-surface-variant cursor-not-allowed" type="email" disabled/>
+<p class="text-xs text-on-surface-variant ml-1">Email không thể thay đổi.</p>
+</div>
+
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant ml-1">Số điện thoại</label>
+<input th:field="*{phone}" class="w-full bg-surface-container-high border-none rounded-lg px-5 py-4 focus:ring-2 focus:ring-primary/40 transition-all placeholder:text-outline/50 text-sm" placeholder="+84 000 000 000" type="tel"/>
+<p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="text-error text-xs mt-1"></p>
+</div>
+
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant ml-1">Địa chỉ</label>
+<textarea th:field="*{address}" class="w-full bg-surface-container-high border-none rounded-lg px-5 py-4 focus:ring-2 focus:ring-primary/40 transition-all placeholder:text-outline/50 text-sm" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành..." rows="3"></textarea>
+<p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-error text-xs mt-1"></p>
+</div>
+
+<div class="flex gap-4 pt-4">
+<button type="submit" class="px-8 py-4 bg-primary text-on-primary rounded-xl font-bold hover:bg-primary-container transition-all shadow-lg shadow-primary/20">Cập nhật</button>
+<a th:href="@{/home}" class="px-8 py-4 border-2 border-outline-variant text-on-surface-variant rounded-xl font-bold hover:bg-surface-container transition-all">Hủy</a>
+</div>
+</form>
+</div>
+
+<!-- Quick Links -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<a th:href="@{/orders}" class="flex items-center gap-4 p-6 bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all group">
+<span class="material-symbols-outlined text-3xl text-primary group-hover:scale-110 transition-transform">receipt_long</span>
+<div>
+<h3 class="font-bold">Đơn hàng của tôi</h3>
+<p class="text-sm text-on-surface-variant">Xem lịch sử đơn hàng</p>
+</div>
+</a>
+<a th:href="@{/cart}" class="flex items-center gap-4 p-6 bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all group">
+<span class="material-symbols-outlined text-3xl text-primary group-hover:scale-110 transition-transform">shopping_cart</span>
+<div>
+<h3 class="font-bold">Giỏ hàng</h3>
+<p class="text-sm text-on-surface-variant">Xem giỏ hàng hiện tại</p>
+</div>
+</a>
+</div>
+</div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

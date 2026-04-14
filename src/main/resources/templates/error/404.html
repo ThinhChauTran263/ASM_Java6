@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html class="light" lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Không tìm thấy')}"></head>
+<body class="bg-surface text-on-surface font-body antialiased">
+<header th:replace="~{fragments/layout :: header}"></header>
+<main class="pt-32 pb-24 px-8 max-w-[1440px] mx-auto min-h-screen flex items-center justify-center">
+<div class="text-center max-w-lg">
+<span class="material-symbols-outlined text-9xl text-outline mb-6" style="font-size: 120px; font-variation-settings: 'FILL' 0, 'wght' 200;">search_off</span>
+<h1 class="text-6xl font-extrabold font-headline text-primary mb-4" th:text="${status} ?: '404'">404</h1>
+<h2 class="text-2xl font-bold font-headline mb-4" th:text="${error} ?: 'Không tìm thấy trang'">Không tìm thấy trang</h2>
+<p class="text-on-surface-variant mb-8" th:text="${message} ?: 'Trang bạn đang tìm kiếm không tồn tại hoặc đã bị xóa.'">Trang bạn đang tìm kiếm không tồn tại hoặc đã bị xóa.</p>
+<a th:href="@{/home}" class="inline-block bg-primary text-on-primary px-8 py-4 rounded-full font-bold text-lg hover:bg-primary-container transition-all shadow-lg shadow-primary/20">Về trang chủ</a>
+</div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>
