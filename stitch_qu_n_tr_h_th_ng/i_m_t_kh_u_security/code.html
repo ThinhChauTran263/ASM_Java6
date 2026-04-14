@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bảo mật tài khoản - Digital Atelier</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary": "#545f73",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-container": "#ffcebd",
+              "on-primary": "#ffffff",
+              "surface": "#f7f9fb",
+              "surface-container": "#eceef0",
+              "surface-container-high": "#e6e8ea",
+              "on-secondary": "#ffffff",
+              "secondary-fixed-dim": "#bcc7de",
+              "on-error-container": "#93000a",
+              "error-container": "#ffdad6",
+              "primary-container": "#0056d2",
+              "on-tertiary": "#ffffff",
+              "on-secondary-container": "#586377",
+              "inverse-on-surface": "#eff1f3",
+              "primary-fixed-dim": "#b2c5ff",
+              "surface-tint": "#0056d2",
+              "on-surface-variant": "#424654",
+              "surface-bright": "#f7f9fb",
+              "on-primary-fixed": "#001847",
+              "tertiary-fixed": "#ffdbcf",
+              "inverse-surface": "#2d3133",
+              "surface-dim": "#d8dadc",
+              "outline-variant": "#c3c6d6",
+              "on-primary-container": "#ccd8ff",
+              "on-error": "#ffffff",
+              "on-surface": "#191c1e",
+              "secondary-fixed": "#d8e3fb",
+              "on-secondary-fixed-variant": "#3c475a",
+              "primary": "#0040a1",
+              "error": "#ba1a1a",
+              "tertiary": "#822800",
+              "outline": "#737785",
+              "on-background": "#191c1e",
+              "surface-variant": "#e0e3e5",
+              "on-tertiary-fixed-variant": "#812800",
+              "surface-container-highest": "#e0e3e5",
+              "background": "#f7f9fb",
+              "tertiary-fixed-dim": "#ffb59b",
+              "on-tertiary-fixed": "#380d00",
+              "secondary-container": "#d5e0f8",
+              "on-secondary-fixed": "#111c2d",
+              "surface-container-low": "#f2f4f6",
+              "primary-fixed": "#dae2ff",
+              "on-primary-fixed-variant": "#0040a1",
+              "inverse-primary": "#b2c5ff",
+              "tertiary-container": "#a93802"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-none">
+<div class="flex justify-between items-center px-8 py-4 w-full max-w-[1440px] mx-auto">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black text-slate-900 dark:text-white tracking-tighter font-headline">Digital Atelier</span>
+<div class="hidden md:flex gap-6 items-center">
+<a class="font-manrope tracking-tight font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-300" href="#">Collections</a>
+<a class="font-manrope tracking-tight font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-300" href="#">Lookbook</a>
+<a class="font-manrope tracking-tight font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-300" href="#">Archive</a>
+<a class="font-manrope tracking-tight font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-300" href="#">Stores</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full transition-all duration-300 scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full transition-all duration-300 scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-surface-container-high ml-2">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional male in a minimal studio setting, high-end editorial lighting, clean and sharp" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAx8TlbrIdKMpQ13bDpEMDjlJTy-PLwny1nJbQdh7vp9-rDi-zjoMRURxmtU6QbmnjtRVnDRO-Ae2UrkPN_JZkvIMPs-SsRvb8NbcYzKKs35dTj3-gYuTtnRQgZSajpIJlQuy--0fQISiPlxocYvgC_gvK_farx9bLpzgIepKkcns3O2rXKKEMj7u5IWPIoufPYueseh-0pASsodiiYvkhzLYP7jz1wLovHhxo70nvY5mcZXgSp63sY-VfJ9FlROafwu7T0Y9GLzmAH"/>
+</div>
+</div>
+</div>
+</nav>
+<div class="pt-[72px] min-h-screen flex">
+<!-- SideNavBar -->
+<aside class="h-full w-64 fixed left-0 top-0 hidden lg:flex flex-col bg-slate-900 dark:bg-slate-950 shadow-2xl z-40">
+<div class="pt-24 px-6 mb-8">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-12 h-12 rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-400">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</div>
+<div>
+<h2 class="text-white font-manrope font-bold text-sm">Account Settings</h2>
+<p class="text-slate-400 text-xs">Manage security and privacy</p>
+</div>
+</div>
+</div>
+<nav class="flex flex-col gap-2 font-inter text-sm font-medium">
+<a class="text-slate-400 py-3 px-6 hover:bg-slate-800 hover:text-white transition-colors duration-200 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+                    Profile
+                </a>
+<a class="bg-blue-600/10 text-blue-400 border-l-4 border-blue-600 py-3 px-6 transition-colors duration-200 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="lock" style="font-variation-settings: 'FILL' 1;">lock</span>
+                    Security
+                </a>
+<a class="text-slate-400 py-3 px-6 hover:bg-slate-800 hover:text-white transition-colors duration-200 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+                    Payments
+                </a>
+<a class="text-slate-400 py-3 px-6 hover:bg-slate-800 hover:text-white transition-colors duration-200 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+                    Notifications
+                </a>
+<a class="text-slate-400 py-3 px-6 hover:bg-slate-800 hover:text-white transition-colors duration-200 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+                    Connected Apps
+                </a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-64 bg-surface min-h-screen">
+<div class="max-w-4xl mx-auto px-8 py-16">
+<!-- Header Section -->
+<header class="mb-12">
+<h1 class="text-4xl font-black text-on-surface font-headline tracking-tighter mb-2">Bảo mật tài khoản</h1>
+<p class="text-secondary font-body">Quản lý mật khẩu và các thiết lập bảo mật khác.</p>
+</header>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+<!-- Change Password Form Card -->
+<div class="md:col-span-8">
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_20px_40px_rgba(25,28,30,0.06)]">
+<h3 class="text-lg font-bold font-headline mb-8 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="key">key</span>
+                                Đổi mật khẩu
+                            </h3>
+<form class="space-y-6">
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant font-label">Mật khẩu hiện tại</label>
+<div class="relative">
+<input class="w-full bg-surface-container-high border-none rounded-DEFAULT px-4 py-3 focus:ring-2 focus:ring-primary/40 outline-none transition-all placeholder:text-outline-variant" placeholder="••••••••" type="password"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant font-label">Mật khẩu mới</label>
+<div class="relative">
+<input class="w-full bg-surface-container-high border-none rounded-DEFAULT px-4 py-3 focus:ring-2 focus:ring-primary/40 outline-none transition-all placeholder:text-outline-variant" placeholder="••••••••" type="password"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant font-label">Xác nhận mật khẩu mới</label>
+<div class="relative">
+<input class="w-full bg-surface-container-high border-none rounded-DEFAULT px-4 py-3 focus:ring-2 focus:ring-primary/40 outline-none transition-all placeholder:text-outline-variant" placeholder="••••••••" type="password"/>
+</div>
+</div>
+</div>
+<div class="pt-4">
+<button class="w-full sm:w-auto px-8 py-3 bg-primary text-on-primary rounded-xl font-bold hover:bg-primary-container transition-all duration-300 scale-95 active:scale-90 flex items-center justify-center gap-2" type="submit">
+                                        Cập nhật mật khẩu
+                                    </button>
+</div>
+</form>
+</div>
+<!-- Secondary Security Info -->
+<div class="mt-8 bg-surface-container-low rounded-xl p-8">
+<div class="flex items-start gap-4">
+<div class="p-3 bg-secondary-container text-primary rounded-lg">
+<span class="material-symbols-outlined" data-icon="info" style="font-variation-settings: 'FILL' 1;">info</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface mb-1">Yêu cầu về mật khẩu</h4>
+<ul class="text-sm text-secondary space-y-2 list-disc list-inside">
+<li>Tối thiểu 8 ký tự.</li>
+<li>Ít nhất một chữ cái viết hoa và một chữ số.</li>
+<li>Không nên chứa tên đăng nhập hoặc email của bạn.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Side Advisory Section -->
+<div class="md:col-span-4 space-y-6">
+<div class="bg-surface-container-highest rounded-xl p-6 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-6xl" data-icon="verified_user">verified_user</span>
+</div>
+<h3 class="font-headline font-bold text-on-surface mb-4">Trạng thái bảo mật</h3>
+<div class="flex items-center gap-2 text-primary font-bold text-sm mb-6">
+<span class="material-symbols-outlined text-sm" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                Tài khoản an toàn
+                            </div>
+<div class="space-y-4">
+<div class="flex justify-between items-center text-xs">
+<span class="text-secondary">Xác thực 2 lớp</span>
+<span class="text-error font-bold">Chưa bật</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5">
+<div class="bg-primary w-2/3 h-full rounded-full"></div>
+</div>
+<p class="text-xs text-secondary italic">Tăng cường bảo mật bằng cách kích hoạt xác thực 2 bước.</p>
+</div>
+</div>
+<div class="bg-primary text-on-primary rounded-xl p-6">
+<h4 class="font-bold mb-2">Cần hỗ trợ?</h4>
+<p class="text-sm text-on-primary-container mb-4">Nếu bạn nghi ngờ có hoạt động lạ, hãy liên hệ ngay với đội ngũ bảo mật của chúng tôi.</p>
+<a class="text-xs font-bold uppercase tracking-widest border-b border-on-primary/30 pb-1 hover:border-on-primary transition-all" href="#">Liên hệ Support</a>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="w-full bg-slate-50 dark:bg-slate-900 py-12 px-8 border-t border-slate-100 dark:border-slate-800 mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center max-w-[1440px] mx-auto">
+<div class="mb-8 md:mb-0">
+<span class="font-manrope font-bold text-slate-900 dark:text-white text-lg">Digital Atelier</span>
+<p class="font-inter text-xs uppercase tracking-widest text-slate-400 mt-2">© 2024 Digital Atelier. Crafted for architectural precision.</p>
+</div>
+<div class="flex gap-8">
+<a class="font-inter text-xs uppercase tracking-widest text-slate-400 hover:text-slate-900 dark:hover:text-white transition-opacity hover:opacity-70" href="#">Privacy</a>
+<a class="font-inter text-xs uppercase tracking-widest text-slate-400 hover:text-slate-900 dark:hover:text-white transition-opacity hover:opacity-70" href="#">Terms</a>
+<a class="font-inter text-xs uppercase tracking-widest text-slate-400 hover:text-slate-900 dark:hover:text-white transition-opacity hover:opacity-70" href="#">Support</a>
+<a class="font-inter text-xs uppercase tracking-widest text-slate-400 hover:text-slate-900 dark:hover:text-white transition-opacity hover:opacity-70" href="#">Contact</a>
+</div>
+</div>
+</footer>
+</body></html>

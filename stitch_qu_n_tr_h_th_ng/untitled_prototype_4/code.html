@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Digital Atelier | High-End E-commerce</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-fixed": "#dae2ff",
+              "on-error": "#ffffff",
+              "inverse-surface": "#2d3133",
+              "on-primary-fixed-variant": "#0040a1",
+              "error": "#ba1a1a",
+              "surface-tint": "#0056d2",
+              "tertiary": "#822800",
+              "on-tertiary-fixed": "#380d00",
+              "on-error-container": "#93000a",
+              "error-container": "#ffdad6",
+              "on-primary-fixed": "#001847",
+              "surface": "#f7f9fb",
+              "on-primary-container": "#ccd8ff",
+              "on-secondary": "#ffffff",
+              "on-secondary-fixed": "#111c2d",
+              "surface-container-high": "#e6e8ea",
+              "on-secondary-container": "#586377",
+              "surface-container": "#eceef0",
+              "on-surface": "#191c1e",
+              "outline": "#737785",
+              "on-surface-variant": "#424654",
+              "on-primary": "#ffffff",
+              "background": "#f7f9fb",
+              "tertiary-fixed-dim": "#ffb59b",
+              "on-tertiary": "#ffffff",
+              "on-tertiary-fixed-variant": "#812800",
+              "inverse-on-surface": "#eff1f3",
+              "surface-variant": "#e0e3e5",
+              "primary": "#0040a1",
+              "tertiary-fixed": "#ffdbcf",
+              "outline-variant": "#c3c6d6",
+              "inverse-primary": "#b2c5ff",
+              "primary-container": "#0056d2",
+              "surface-container-low": "#f2f4f6",
+              "secondary-fixed-dim": "#bcc7de",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-container": "#ffcebd",
+              "surface-bright": "#f7f9fb",
+              "secondary-container": "#d5e0f8",
+              "on-background": "#191c1e",
+              "tertiary-container": "#a93802",
+              "primary-fixed-dim": "#b2c5ff",
+              "secondary": "#545f73",
+              "surface-container-highest": "#e0e3e5",
+              "secondary-fixed": "#d8e3fb",
+              "on-secondary-fixed-variant": "#3c475a",
+              "surface-dim": "#d8dadc"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f7f9fb;
+        color: #191c1e;
+      }
+      h1, h2, h3 {
+        font-family: 'Manrope', sans-serif;
+      }
+    </style>
+</head>
+<body class="bg-surface selection:bg-primary-fixed selection:text-primary">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl shadow-[0_20px_40px_rgba(25,28,30,0.06)]">
+<nav class="flex justify-between items-center w-full px-8 py-4 max-w-[1440px] mx-auto">
+<div class="flex items-center gap-12">
+<a class="text-2xl font-extrabold tracking-tighter text-slate-900 dark:text-slate-50" href="#">Digital Atelier</a>
+<div class="hidden md:flex gap-8 font-['Manrope'] tracking-tight text-sm font-medium">
+<a class="text-blue-700 dark:text-blue-400 border-b-2 border-blue-700 dark:border-blue-400 pb-1 hover:text-blue-800 transition-colors" href="#">New Arrivals</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-800 transition-colors" href="#">Collections</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-800 transition-colors" href="#">Editorial</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-800 transition-colors" href="#">About</a>
+</div>
+</div>
+<!-- Search Bar (on_right logic) -->
+<div class="flex-1 max-w-md mx-8 hidden lg:block">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-surface-container-high border-none rounded-full py-2.5 pl-12 pr-4 text-sm focus:ring-2 focus:ring-primary/40 focus:bg-surface-container-lowest transition-all outline-none" placeholder="Tìm kiếm sản phẩm..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-on-surface-variant hover:text-primary transition-colors scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+<span class="absolute top-0 right-0 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white">3</span>
+</button>
+<button class="p-2 lg:hidden text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</div>
+<div class="hidden sm:flex items-center gap-3">
+<button class="px-5 py-2 text-sm font-semibold text-primary hover:bg-primary-fixed/30 transition-all rounded-full">Login</button>
+<button class="px-6 py-2 text-sm font-semibold bg-primary text-on-primary hover:bg-primary-container transition-all rounded-full shadow-lg shadow-primary/20">Sign Up</button>
+</div>
+</div>
+</nav>
+</header>
+<main class="pt-24 pb-20 max-w-[1440px] mx-auto px-8">
+<!-- Hero Banner Section -->
+<section class="mb-16">
+<div class="relative h-[520px] rounded-xl overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-tr from-primary via-primary-container to-blue-400">
+<img alt="Summer Promo" class="w-full h-full object-cover mix-blend-overlay opacity-60 transition-transform duration-700 group-hover:scale-105" data-alt="Modern tech accessories lifestyle shot with clean white aesthetic and minimalist blue lighting accents, premium feeling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADkas4T9ZirfHVjv7WttuZfybqLxMmY3_YZd7vLJD6iIJ-Qw8pge746N1AI9O2-m8g-PM7FuN4IxX37nrWdwMRFQjzHuPCrYsDuIErnZMRZdErMP_uUAt_8O3-rlAAU3dG8G06umC81C9UmqPoQMjltr-G9fDl7bojYJp9K7T_hezY1DgC4-KtYkaaevW6UdPcimF_N4KcwP-E6_uRGeRP-_822kYJ1CusHBzZ4AzpZUYBfxGc28ps-4Ozdo_vnzmp3yeqgOF08fqP"/>
+</div>
+<div class="absolute inset-0 flex flex-col justify-center px-16 max-w-2xl">
+<span class="inline-block px-4 py-1.5 bg-tertiary text-white text-xs font-bold uppercase tracking-[0.2em] rounded-full mb-6 w-fit">Limited Edition</span>
+<h1 class="text-6xl font-extrabold text-white leading-tight mb-6 drop-shadow-sm">Khuyến mãi mùa hè</h1>
+<p class="text-white/90 text-lg font-body mb-8 leading-relaxed">Khám phá bộ sưu tập công nghệ mới nhất với ưu đãi lên đến 40%. Trải nghiệm thiết kế tối giản, hiệu năng đỉnh cao.</p>
+<div class="flex gap-4">
+<button class="px-8 py-4 bg-white text-primary font-bold rounded-xl shadow-xl hover:bg-surface-container-low transition-all scale-100 active:scale-95">Mua ngay</button>
+<button class="px-8 py-4 border-2 border-white/30 text-white font-bold rounded-xl backdrop-blur-md hover:bg-white/10 transition-all">Xem bộ sưu tập</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Content with 2 Columns -->
+<div class="flex flex-col lg:flex-row gap-12">
+<!-- Sidebar (25%) -->
+<aside class="w-full lg:w-1/4">
+<div class="sticky top-28 space-y-8">
+<div>
+<h3 class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-6">Danh mục sản phẩm</h3>
+<div class="space-y-1">
+<a class="group flex items-center justify-between p-4 rounded-xl bg-primary-fixed/50 text-primary font-semibold transition-all" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined" data-icon="smartphone">smartphone</span>
+<span>Điện thoại</span>
+</div>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</a>
+<a class="group flex items-center justify-between p-4 rounded-xl text-on-secondary-container hover:bg-surface-container transition-all" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined" data-icon="laptop_mac">laptop_mac</span>
+<span>Laptop</span>
+</div>
+<span class="material-symbols-outlined text-sm opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</a>
+<a class="group flex items-center justify-between p-4 rounded-xl text-on-secondary-container hover:bg-surface-container transition-all" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined" data-icon="headphones">headphones</span>
+<span>Phụ kiện</span>
+</div>
+<span class="material-symbols-outlined text-sm opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</a>
+<a class="group flex items-center justify-between p-4 rounded-xl text-on-secondary-container hover:bg-surface-container transition-all" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined" data-icon="watch">watch</span>
+<span>Smartwatch</span>
+</div>
+<span class="material-symbols-outlined text-sm opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</a>
+</div>
+</div>
+<div class="p-6 rounded-xl bg-inverse-surface text-inverse-on-surface">
+<p class="text-xs uppercase tracking-widest text-on-surface-variant font-bold mb-3">Newsletter</p>
+<h4 class="text-lg font-bold mb-4 leading-tight">Nhận tin ưu đãi mới nhất</h4>
+<div class="flex gap-2">
+<input class="flex-1 min-w-0 bg-white/10 border-none rounded-lg text-sm px-3 py-2 focus:ring-1 focus:ring-primary-fixed outline-none" placeholder="Email của bạn" type="email"/>
+<button class="bg-primary px-3 py-2 rounded-lg scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-white">send</span>
+</button>
+</div>
+</div>
+</div>
+</aside>
+<!-- Product Grid (75%) -->
+<section class="w-full lg:w-3/4">
+<div class="flex items-baseline justify-between mb-10">
+<h2 class="text-3xl font-extrabold tracking-tight">Sản phẩm nổi bật</h2>
+<div class="flex items-center gap-4 text-sm font-medium text-on-surface-variant">
+<span>Sắp xếp:</span>
+<select class="bg-transparent border-none focus:ring-0 cursor-pointer font-bold text-primary">
+<option>Mới nhất</option>
+<option>Giá thấp đến cao</option>
+<option>Giá cao đến thấp</option>
+</select>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+<!-- Product Card 1 -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+<div class="relative aspect-square bg-surface-container overflow-hidden">
+<img alt="Product" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Sleek premium smartphone held in hand showing back glass texture and camera lenses, professional product photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAL8EV1n3ztogg9d051w-5Y34ZRk6JzpApuHNfxAjjkO9QSrmiIyhAvwZA7dM7u9ei_WKeOFjeYUmkGUov6ai4d9KGpieqEonnSVcxWiuIgHYXKWKD2c3VQZlvGPkH-TRkbL9wnAOeWXetkQWxqEgs5C-naQabSff007MDFV4dWCu6yA-lZ14Rp73BpxBIacuxoGTuvIyqkOR27MzPF03aAy964GeP2gN73deis0dytDi0rB2jfXFvg5By9t_QQmqtrHWu67pw7kASU"/>
+<div class="absolute top-4 left-4">
+<span class="bg-primary text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">New</span>
+</div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-lg leading-tight group-hover:text-primary transition-colors">iPhone 15 Pro Max</h3>
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">favorite</span>
+</button>
+</div>
+<p class="text-sm text-on-surface-variant mb-4">Titan Tự Nhiên, 256GB</p>
+<div class="flex items-center justify-between mt-auto">
+<span class="text-xl font-extrabold text-primary">34.990.000 VNĐ</span>
+<button class="p-2.5 bg-primary-fixed text-primary rounded-full hover:bg-primary hover:text-white transition-all scale-95 active:scale-90">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+<div class="relative aspect-square bg-surface-container overflow-hidden">
+<img alt="Product" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="MacBook Pro open on a clean desk with soft studio lighting reflecting on its aluminum body" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASsmvdfU9l6iVyiEVzvtSfibDEWmMoi5VbvxDodn3kKzhHgHBLe0FlPqK2NT3pab8xt56SPWN04En0NTQsqwXsUIb0T5OqqnFBGIqcmo3XVRCxzxtfFW2uRvU4I3_iTVubgK00xZIV42845QUNE66klBDMoax4PV1ipXbm4UFVQZ7Q1TX7DQHCbTQMtu-mksklFtNgWfEpndtBeH4Y1E4EpnOn_m0qcTwM3ZTgBCOxkRhj1bMVhXfN0ALned4r34z8BvEu4Q0-n7ft"/>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-lg leading-tight group-hover:text-primary transition-colors">MacBook Pro M3</h3>
+<button class="text-on-surface-variant">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<p class="text-sm text-on-surface-variant mb-4">14 inch, 16GB RAM, 512GB</p>
+<div class="flex items-center justify-between mt-auto">
+<span class="text-xl font-extrabold text-primary">39.990.000 VNĐ</span>
+<button class="p-2.5 bg-primary-fixed text-primary rounded-full hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+<div class="relative aspect-square bg-surface-container overflow-hidden">
+<img alt="Product" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Modern high resolution tablet with stylus pen on a marble surface, clean professional aesthetics" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoiNbYKspr4b8JDgxnJ3PlncDaA7jzdppYOaiad__bkGtKnMAJ3VhIsIfZenF30ZI8exMR95mD7-qOVqHl1CTvJncZO7kLXN78sBEmH9P54CWEqSKMumfBYNOqRXwBNsRBCPVurAIhrtNQEEFKnrhagR7Lf90ayrC3twjNkXammXWZeiC2cDtnJ0BLyDMJPIxo6owQtCn4ONJzl7oJkfpGHxyFCKoJ-zbgP5PbyXP1n3gMeiTS5udizC49YLVAr9dDZMb7FYTcKPB3"/>
+<div class="absolute top-4 left-4">
+<span class="bg-tertiary text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">-15%</span>
+</div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-lg leading-tight group-hover:text-primary transition-colors">iPad Pro M2</h3>
+<button class="text-on-surface-variant">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<p class="text-sm text-on-surface-variant mb-4">11 inch, Wi-Fi, 128GB</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex flex-col">
+<span class="text-xs text-on-surface-variant line-through">22.990.000 VNĐ</span>
+<span class="text-xl font-extrabold text-primary">19.540.000 VNĐ</span>
+</div>
+<button class="p-2.5 bg-primary-fixed text-primary rounded-full hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+<div class="relative aspect-square bg-surface-container overflow-hidden">
+<img alt="Product" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="High-end noise cancelling headphones over ear, premium materials, minimalist studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2MFUFpqgg3hzSNdsAowXk8obhaac6UZwcRqfoWoxdqp3KBqd9TVRNwN5ZHWG3h7kLyWsTbUz-GJFoNpqvP_9YLwvtDpdCLU6wBWoPkLLMUtvlR9S74EwBlG6Q0DNGMkzT_2fEOwTBo2wux0BUCKYMnJwjvByiAxg0sjDRyN8wtFSGmrQ1ye8GiNnTcqmMDBc7O6wVR7CxFSdLVVo-kRnTSXaoVOD-R4iUMByMaVAGWMUapVMP4XjAhgORYN7UQ-BaHCIZ5GjCo-SK"/>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-lg leading-tight group-hover:text-primary transition-colors">Sony WH-1000XM5</h3>
+<button class="text-on-surface-variant">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<p class="text-sm text-on-surface-variant mb-4">Tai nghe chống ồn không dây</p>
+<div class="flex items-center justify-between mt-auto">
+<span class="text-xl font-extrabold text-primary">8.490.000 VNĐ</span>
+<button class="p-2.5 bg-primary-fixed text-primary rounded-full hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 5 -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+<div class="relative aspect-square bg-surface-container overflow-hidden">
+<img alt="Product" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Modern smart watch with silicon band, showing fitness tracking interface on screen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmeldJmc2ZaJBK5ZNV7gWjhHcErfsWRihLtHE5WeGAk9UNYHxo_KmbWKYejcnO1cmkldlENrkdmPDEB1_1SXGeTFVr0OZZadnVOwtccI2Jlc_tUlAPAmtde50I7wpZJ95ScmudkFde1TiCbh5R-0RQaLlI2vbyiA1FrTkaE6YOtI_9eySN7emzJxw8NQXS_wH35eGjmnllQDikvmryKo5oP0FzmQOhfo7t5HwYiKEeWboA18I8dtDqAbKUkmLEPPio7DYVUC8aW_C7"/>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-lg leading-tight group-hover:text-primary transition-colors">Apple Watch Series 9</h3>
+<button class="text-on-surface-variant">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<p class="text-sm text-on-surface-variant mb-4">Aluminum Case, Sport Band</p>
+<div class="flex items-center justify-between mt-auto">
+<span class="text-xl font-extrabold text-primary">10.490.000 VNĐ</span>
+<button class="p-2.5 bg-primary-fixed text-primary rounded-full hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 6 -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+<div class="relative aspect-square bg-surface-container overflow-hidden">
+<img alt="Product" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Professional camera lens with lens flare on dark reflective surface, cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyx2FjKEVr3MEZKY_TgBq_Ywn6Ucx8dSxwnhv1ZIxqBsrDTyIrv5ISXDKlMZM6ZUnG5AzfG1sYjKzUJZIgJFBQLe509_xE4YazoGVvu-MQ1U3M8AJSRheaUB3RH1d1dJ8v3_xADkRC8bcNV_1HpS8wmCNOXdDUKk3zrzgiWxKkMJpUZV8xS8TmU7XZpv78VrM61eY9a5nG58-PNKe1V82Kt5NQpvAy41-1FGIE_P4jjFm6YLlYfQfJoLCdHiICTwnVhe9wMQUyo_B1"/>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-lg leading-tight group-hover:text-primary transition-colors">Canon EOS R5</h3>
+<button class="text-on-surface-variant">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<p class="text-sm text-on-surface-variant mb-4">Body Only, 45MP Full-Frame</p>
+<div class="flex items-center justify-between mt-auto">
+<span class="text-xl font-extrabold text-primary">89.000.000 VNĐ</span>
+<button class="p-2.5 bg-primary-fixed text-primary rounded-full hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Load More Section -->
+<div class="mt-16 flex justify-center">
+<button class="px-12 py-4 border-2 border-primary text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition-all scale-100 active:scale-95">Xem thêm sản phẩm</button>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-16 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 mt-20">
+<div class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+<div class="space-y-6">
+<h2 class="text-xl font-black text-slate-900 dark:text-slate-100">Digital Atelier</h2>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Nơi hội tụ những tinh hoa công nghệ và thiết kế. Chúng tôi mang đến những sản phẩm tốt nhất cho trải nghiệm sống của bạn.</p>
+<div class="flex gap-4">
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">chat</span></a>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">mail</span></a>
+</div>
+</div>
+<div>
+<h4 class="font-['Inter'] text-xs uppercase tracking-widest text-blue-700 dark:text-blue-400 font-bold mb-8">Shopping</h4>
+<ul class="space-y-4 font-['Inter'] text-sm">
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 underline-offset-4 hover:underline transition-all" href="#">New Arrivals</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 underline-offset-4 hover:underline transition-all" href="#">Best Sellers</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 underline-offset-4 hover:underline transition-all" href="#">Sale Items</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-['Inter'] text-xs uppercase tracking-widest text-blue-700 dark:text-blue-400 font-bold mb-8">Help &amp; Support</h4>
+<ul class="space-y-4 font-['Inter'] text-sm">
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 underline-offset-4 hover:underline transition-all" href="#">Shipping</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 underline-offset-4 hover:underline transition-all" href="#">Returns</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 underline-offset-4 hover:underline transition-all" href="#">Contact</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-['Inter'] text-xs uppercase tracking-widest text-blue-700 dark:text-blue-400 font-bold mb-8">Legal</h4>
+<ul class="space-y-4 font-['Inter'] text-sm">
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 underline-offset-4 hover:underline transition-all" href="#">Privacy Policy</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 underline-offset-4 hover:underline transition-all" href="#">Terms of Service</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-8 pt-12 mt-12 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-6">
+<p class="font-['Inter'] text-xs uppercase tracking-widest text-slate-500">© 2024 Digital Atelier. All Rights Reserved.</p>
+<div class="flex gap-8">
+<span class="material-symbols-outlined text-slate-400 text-3xl">credit_card</span>
+<span class="material-symbols-outlined text-slate-400 text-3xl">account_balance_wallet</span>
+<span class="material-symbols-outlined text-slate-400 text-3xl">contactless</span>
+</div>
+</div>
+</footer>
+</body></html>

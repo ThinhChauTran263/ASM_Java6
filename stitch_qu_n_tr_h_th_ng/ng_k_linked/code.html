@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sign Up | ATELIER</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-highest": "#e0e3e5",
+              "on-primary": "#ffffff",
+              "on-primary-fixed": "#001847",
+              "surface-bright": "#f7f9fb",
+              "secondary-fixed-dim": "#bcc7de",
+              "primary-fixed": "#dae2ff",
+              "tertiary-fixed-dim": "#ffb59b",
+              "surface-dim": "#d8dadc",
+              "on-secondary-fixed-variant": "#3c475a",
+              "primary-container": "#0056d2",
+              "outline-variant": "#c3c6d6",
+              "on-primary-fixed-variant": "#0040a1",
+              "tertiary": "#822800",
+              "on-surface": "#191c1e",
+              "on-secondary-fixed": "#111c2d",
+              "background": "#f7f9fb",
+              "outline": "#737785",
+              "on-error": "#ffffff",
+              "secondary-fixed": "#d8e3fb",
+              "surface-container": "#eceef0",
+              "on-tertiary-fixed-variant": "#812800",
+              "surface-container-low": "#f2f4f6",
+              "surface-tint": "#0056d2",
+              "secondary-container": "#d5e0f8",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-fixed": "#380d00",
+              "primary-fixed-dim": "#b2c5ff",
+              "inverse-surface": "#2d3133",
+              "inverse-on-surface": "#eff1f3",
+              "surface": "#f7f9fb",
+              "on-tertiary": "#ffffff",
+              "on-background": "#191c1e",
+              "on-error-container": "#93000a",
+              "on-secondary": "#ffffff",
+              "inverse-primary": "#b2c5ff",
+              "error": "#ba1a1a",
+              "on-surface-variant": "#424654",
+              "surface-container-high": "#e6e8ea",
+              "on-secondary-container": "#586377",
+              "on-primary-container": "#ccd8ff",
+              "on-tertiary-container": "#ffcebd",
+              "secondary": "#545f73",
+              "tertiary-container": "#a93802",
+              "primary": "#0040a1",
+              "tertiary-fixed": "#ffdbcf",
+              "surface-variant": "#e0e3e5",
+              "error-container": "#ffdad6"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .asymmetric-shape {
+            clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+<main class="min-h-screen flex flex-col md:flex-row overflow-hidden">
+<div class="hidden md:flex md:w-5/12 lg:w-1/2 relative bg-primary-container items-center justify-center p-20 overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-60 mix-blend-overlay" data-alt="Minimalist architectural interior with sharp shadows, clean white concrete walls and a single large window letting in dramatic soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDL6G1x0iDrM4BbIqoTWCh7s53zV9yK2NTYaLhTb2NAx3ut_2gVHZVVBNhS26SAKrq_6-UXiYutbN8tjgzlR2MtUE8SfOExlSfoaDHdZDFOI0M9cZwXSLyhyMClx2hFaV8nZkvPJm7Hfw0buQuCIHtbxB6VeAm-_zrz4vZaZF-B0OpI-D6nIeObZegi3BK6L2JAarVB2F55igPMlHyshe7hXEAfx0fpFh_gAnbjovWuly729ZuSREFO15Gz4zunC-Ukvhlx4iZqdgny"/>
+</div>
+<div class="absolute inset-0 bg-gradient-to-br from-primary/80 to-primary-container/40 z-10"></div>
+<div class="relative z-20 max-w-lg text-white">
+<div class="mb-12">
+<span class="text-xs font-headline uppercase tracking-[0.4em] text-primary-fixed opacity-80 mb-4 block">Architectural E-Commerce</span>
+<h1 class="text-5xl lg:text-7xl font-headline font-extrabold tracking-tighter leading-tight mb-6">ATELIER</h1>
+<p class="text-lg font-light text-on-primary-container max-w-sm leading-relaxed">
+                        Curating space, structure, and material into a singular digital experience for the modern aesthetic.
+                    </p>
+</div>
+<div class="flex items-center gap-4 pt-12 border-t border-white/10">
+<div class="flex -space-x-3">
+<div class="w-10 h-10 rounded-full border-2 border-primary overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a professional male architect in a studio setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-KZ18FNks1ZVX2RwfuY1AECHizxrui90m3FzkhywzIC5UqELTwMoeee5H4XK8u-QmBUj_-frB1-8pNU09LWDxJPFrLl-Rzg1II2zD6H9M0Ymqv6XDB7dPYo41QUAjHiGhzp1b_TQuFiFkE9etxlsgAN-gtEgBOioA94lBFQIQJwiAeXvinXN1Wiw7rF8hM5M44NsWydv6HxXftXICssiczQFg9B2vEtwsirkR5ggUsV2t8pOmYnkRxp38eWgXqkWoXJlM9qh6aplM"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-primary overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Professional profile photo of a female interior designer looking confident" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAh4lKtX8TecACn-5Go1QJ1uoXz4eszoPDs5lB982mdpwzITEbn0i0FiqDOiOSpLDhQM3OdKGAEtWXvrBrS8TvXN2NNrGs6uUktXF-2bSPE_hBsau3bB42U7WnP5dN3XNi0zgWwjzAG650cFP_w3zKPRETflZqrmp1UZdy3DCaO-lOVWpuw8JaxKpet6LOkXRsF1byLBB8Kd8RVnQ8NXxZX33NMrcDiS5iLsUkXZWA6R1XkmBCIKJ-sYeRnTTsnGQNtZru93Kfu_hcs"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-primary overflow-hidden bg-surface-container-high flex items-center justify-center">
+<span class="text-[10px] text-on-surface-variant font-bold">+12k</span>
+</div>
+</div>
+<p class="text-xs font-medium text-primary-fixed/80">Join our community of elite curators.</p>
+</div>
+</div>
+<div class="absolute -bottom-24 -left-24 w-96 h-96 bg-primary-fixed/10 rounded-full blur-3xl"></div>
+</div>
+<div class="flex-1 flex flex-col bg-surface-bright items-center justify-center px-6 py-12 md:px-12 lg:px-24">
+<div class="w-full max-w-[440px]">
+<div class="mb-10 text-center md:text-left">
+<div class="md:hidden mb-6">
+<h2 class="text-3xl font-headline font-black tracking-tighter text-on-surface">ATELIER</h2>
+</div>
+<h3 class="text-3xl font-headline font-bold text-on-surface tracking-tight mb-2">Create Account</h3>
+<p class="text-on-surface-variant body-md font-light">Enter your details to join the Digital Atelier.</p>
+</div>
+<form class="space-y-5">
+<div class="space-y-1.5">
+<label class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant/70 ml-1" for="fullname">Full Name</label>
+<div class="relative group">
+<input class="w-full px-5 py-4 bg-surface-container-high border-none rounded-lg focus:ring-2 focus:ring-primary/40 text-on-surface placeholder:text-outline/50 transition-all duration-300" id="fullname" placeholder="Julian Architecture" type="text"/>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant/70 ml-1" for="email">Email Address</label>
+<div class="relative group">
+<input class="w-full px-5 py-4 bg-surface-container-high border-none rounded-lg focus:ring-2 focus:ring-primary/40 text-on-surface placeholder:text-outline/50 transition-all duration-300" id="email" placeholder="name@atelier.com" type="email"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="space-y-1.5">
+<label class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant/70 ml-1" for="password">Password</label>
+<input class="w-full px-5 py-4 bg-surface-container-high border-none rounded-lg focus:ring-2 focus:ring-primary/40 text-on-surface placeholder:text-outline/50 transition-all duration-300" id="password" placeholder="••••••••" type="password"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant/70 ml-1" for="confirm-password">Confirm Password</label>
+<input class="w-full px-5 py-4 bg-surface-container-high border-none rounded-lg focus:ring-2 focus:ring-primary/40 text-on-surface placeholder:text-outline/50 transition-all duration-300" id="confirm-password" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<div class="flex items-start gap-3 py-2">
+<input class="mt-1 w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary/40 bg-surface-container-lowest" id="terms" type="checkbox"/>
+<label class="text-sm text-on-surface-variant leading-snug" for="terms">
+                            I agree to the <a class="text-primary font-medium hover:underline" href="#">Terms of Service</a> and <a class="text-primary font-medium hover:underline" href="#">Privacy Policy</a>.
+                        </label>
+</div>
+<a class="w-full inline-block text-center py-4 bg-primary text-on-primary rounded-xl font-headline font-bold text-base hover:bg-primary-container transition-all duration-300 transform active:scale-[0.98] shadow-lg shadow-primary/20" href="{{DATA:SCREEN:SCREEN_7}}">
+                        Đăng ký
+                    </a>
+</form>
+<div class="relative my-10">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-outline-variant/30"></div>
+</div>
+<div class="relative flex justify-center text-xs uppercase tracking-widest">
+<span class="bg-surface-bright px-4 text-on-surface-variant/50 font-medium">Or continue with</span>
+</div>
+</div>
+<button class="w-full py-4 bg-surface-container-lowest border border-outline-variant/20 rounded-xl flex items-center justify-center gap-3 text-on-surface font-medium hover:bg-surface-container-low transition-all duration-200" onclick="window.location.href='{{DATA:SCREEN:SCREEN_7}}'">
+<svg class="w-5 h-5" viewbox="0 0 24 24">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+</svg>
+                    Đăng ký với Google
+                </button>
+<div class="mt-10 text-center">
+<p class="text-sm text-on-surface-variant">
+                        Already have an account? 
+                        <a class="text-primary font-bold ml-1 hover:underline" href="{{DATA:SCREEN:SCREEN_14}}">Đăng nhập</a>
+</p>
+</div>
+</div>
+<footer class="mt-16 text-center">
+<p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant/40">
+                    © 2024 ATELIER. ARCHITECTURAL E-COMMERCE.
+                </p>
+</footer>
+</div>
+</main>
+<div class="fixed top-8 right-8 z-50">
+<a class="flex items-center gap-2 group" href="{{DATA:SCREEN:SCREEN_7}}">
+<span class="text-xs font-headline font-bold tracking-[0.2em] text-on-surface uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300">Close</span>
+<div class="w-10 h-10 rounded-full glass-panel flex items-center justify-center border border-white/20 shadow-xl shadow-black/5 hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-on-surface text-xl">close</span>
+</div>
+</a>
+</div>
+</body></html>
