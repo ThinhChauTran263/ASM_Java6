@@ -7,7 +7,9 @@ CREATE TABLE IF NOT EXISTS users (
     address TEXT,
     provider VARCHAR(50),
     provider_id VARCHAR(100),
-    image_url VARCHAR(500)
+    image_url VARCHAR(500),
+    role VARCHAR(20) NOT NULL DEFAULT 'USER',
+    created_date TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS categories (

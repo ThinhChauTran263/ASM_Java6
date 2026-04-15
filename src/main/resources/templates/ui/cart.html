@@ -3,55 +3,77 @@
 <head th:replace="~{fragments/layout :: head('Giỏ hàng')}"></head>
 <body class="bg-background text-on-surface font-body antialiased">
 <header th:replace="~{fragments/layout :: header}"></header>
-<main class="pt-32 pb-24 px-8 max-w-[1440px] mx-auto min-h-screen">
+
+<!-- Vue.js App for Cart -->
+<main id="cart-app" class="pt-32 pb-24 px-8 max-w-[1440px] mx-auto min-h-screen">
+
 <header class="mb-16">
 <h1 class="text-5xl font-extrabold font-headline tracking-tight text-on-surface">Giỏ hàng của bạn</h1>
-<p class="text-on-surface-variant mt-2 font-body" th:if="${cartItems != null and !cartItems.isEmpty()}" th:text="'Bạn đang có ' + ${cartItemCount} + ' sản phẩm tuyệt vời trong giỏ hàng.'">Bạn đang có sản phẩm trong giỏ hàng.</p>
-<p class="text-on-surface-variant mt-2 font-body" th:if="${cartItems == null or cartItems.isEmpty()}">Giỏ hàng của bạn đang trống.</p>
+<p class="text-on-surface-variant mt-2 font-body" v-if="items.length > 0">
+    Bạn đang có {{ itemCount }} sản phẩm tuyệt vời trong giỏ hàng.
+</p>
+<p class="text-on-surface-variant mt-2 font-body" v-else>Giỏ hàng của bạn đang trống.</p>
 </header>
+
+<!-- Loading State -->
+<div v-if="loading" class="text-center py-20">
+<span class="material-symbols-outlined text-6xl text-primary animate-spin">progress_activity</span>
+<p class="mt-4 text-on-surface-variant">Đang tải giỏ hàng...</p>
+</div>
+
 <!-- Empty Cart State -->
-<div th:if="${cartItems == null or cartItems.isEmpty()}" class="text-center py-20">
+<div v-if="!loading && items.length === 0" class="text-center py-20">
 <span class="material-symbols-outlined text-8xl text-outline mb-6" style="font-variation-settings: 'FILL' 0, 'wght' 300;">shopping_cart</span>
 <h2 class="text-2xl font-bold font-headline mb-4">Chưa có sản phẩm nào</h2>
 <p class="text-on-surface-variant mb-8">Hãy khám phá các sản phẩm tuyệt vời của chúng tôi!</p>
 <a th:href="@{/home}" class="inline-block bg-primary text-on-primary px-8 py-4 rounded-full font-bold text-lg hover:bg-primary-container transition-all shadow-lg shadow-primary/20">Tiếp tục mua sắm</a>
 </div>
-<!-- Cart Content -->
-<div th:if="${cartItems != null and !cartItems.isEmpty()}" class="flex flex-col lg:flex-row gap-16">
+
+<!-- Success/Error Messages -->
+<div v-if="message" class="mb-8 p-4 rounded-xl flex items-center gap-3"
+     :class="messageType === 'success' ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'">
+<span class="material-symbols-outlined" :class="messageType === 'success' ? 'text-green-600' : 'text-red-600'">
+    {{ messageType === 'success' ? 'check_circle' : 'error' }}
+</span>
+<p :class="messageType === 'success' ? 'text-green-800' : 'text-red-800'" class="font-medium" v-text="message"></p>
+</div>
+
+<!-- Cart Content (Vue.js driven) -->
+<div v-if="!loading && items.length > 0" class="flex flex-col lg:flex-row gap-16">
 <!-- Left Column: Products -->
 <div class="lg:w-[70%] space-y-8">
-<!-- Dynamic Product Row -->
-<div th:each="item : ${cartItems}" class="group flex flex-col sm:flex-row items-center gap-8 p-6 bg-surface-container-lowest rounded-xl transition-all duration-300 hover:shadow-lg">
+<div v-for="item in items" :key="item.productId"
+     class="group flex flex-col sm:flex-row items-center gap-8 p-6 bg-surface-container-lowest rounded-xl transition-all duration-300 hover:shadow-lg">
 <div class="w-32 h-40 bg-surface-container-highest rounded-lg overflow-hidden flex-shrink-0">
-<img class="w-full h-full object-cover" th:src="${item.productImage}" th:alt="${item.productName}"/>
+<img class="w-full h-full object-cover" :src="item.productImage" :alt="item.productName"/>
 </div>
 <div class="flex-grow space-y-2">
 <div class="flex justify-between items-start">
-<h3 class="text-xl font-bold font-headline" th:text="${item.productName}">Product Name</h3>
-<form th:action="@{/cart/remove}" method="post">
-<input type="hidden" name="productId" th:value="${item.productId}"/>
-<button type="submit" class="text-on-surface-variant hover:text-error transition-colors">
-<span class="material-symbols-outlined" data-icon="delete">delete</span>
+<h3 class="text-xl font-bold font-headline" v-text="item.productName">Product Name</h3>
+<button @click="removeItem(item.productId)" class="text-on-surface-variant hover:text-error transition-colors"
+        :disabled="updating">
+<span class="material-symbols-outlined">delete</span>
 </button>
-</form>
 </div>
 <p class="text-on-secondary-container text-sm">
-<span th:if="${item.size != null}" th:text="'Size: ' + ${item.size}">Size</span>
-<span th:if="${item.size != null and item.color != null}"> | </span>
-<span th:if="${item.color != null}" th:text="'Color: ' + ${item.color}">Color</span>
+<span v-if="item.size">Size: {{ item.size }}</span>
+<span v-if="item.size && item.color"> | </span>
+<span v-if="item.color">Color: {{ item.color }}</span>
 </p>
 <div class="flex flex-wrap items-center justify-between gap-4 mt-4">
-<form th:action="@{/cart/update}" method="post" class="flex items-center bg-surface-container rounded-full px-4 py-2">
-<input type="hidden" name="productId" th:value="${item.productId}"/>
-<button type="submit" name="quantity" th:value="${item.quantity - 1}" class="w-8 h-8 flex items-center justify-center text-primary font-bold">-</button>
-<span class="px-6 font-semibold" th:text="${item.quantity}">1</span>
-<button type="submit" name="quantity" th:value="${item.quantity + 1}" class="w-8 h-8 flex items-center justify-center text-primary font-bold">+</button>
-</form>
-<span class="text-2xl font-black font-headline tracking-tighter" th:text="${#numbers.formatDecimal(item.subtotal, 0, 'COMMA', 0, 'POINT')} + ' VND'">0 VND</span>
+<div class="flex items-center bg-surface-container rounded-full px-4 py-2">
+<button @click="updateQty(item.productId, item.quantity - 1)" :disabled="item.quantity <= 1 || updating"
+        class="w-8 h-8 flex items-center justify-center text-primary font-bold disabled:opacity-30">-</button>
+<span class="px-6 font-semibold" v-text="item.quantity">1</span>
+<button @click="updateQty(item.productId, item.quantity + 1)" :disabled="updating"
+        class="w-8 h-8 flex items-center justify-center text-primary font-bold disabled:opacity-30">+</button>
+</div>
+<span class="text-2xl font-black font-headline tracking-tighter">{{ formatPrice(item.subtotal) }} VND</span>
 </div>
 </div>
 </div>
 </div>
+
 <!-- Right Column: Order Summary -->
 <div class="lg:w-[30%]">
 <div class="sticky top-32 bg-surface-container-low p-8 rounded-xl space-y-8">
@@ -59,7 +81,7 @@
 <div class="space-y-4">
 <div class="flex justify-between text-on-surface-variant">
 <span class="font-body">Tạm tính</span>
-<span class="font-medium" th:text="${#numbers.formatDecimal(cartTotal, 0, 'COMMA', 0, 'POINT')} + ' VND'">0 VND</span>
+<span class="font-medium">{{ formatPrice(total) }} VND</span>
 </div>
 <div class="flex justify-between text-on-surface-variant">
 <span class="font-body">Phí vận chuyển</span>
@@ -73,25 +95,130 @@
 <div class="pt-6 border-t border-outline-variant">
 <div class="flex justify-between items-end mb-8">
 <span class="text-lg font-bold">Tổng cộng</span>
-<span class="text-3xl font-black font-headline text-primary tracking-tighter" th:text="${#numbers.formatDecimal(cartTotal, 0, 'COMMA', 0, 'POINT')} + ' VND'">0 VND</span>
+<span class="text-3xl font-black font-headline text-primary tracking-tighter">{{ formatPrice(total) }} VND</span>
 </div>
 <a class="block w-full bg-primary text-on-primary py-5 rounded-full font-bold text-lg scale-95 active:scale-90 transition-transform shadow-xl shadow-primary/20 text-center" th:href="@{/checkout}">
-                            Tiến hành thanh toán
-                        </a>
+    Tiến hành thanh toán
+</a>
 </div>
 <div class="space-y-4 bg-surface-container-lowest p-4 rounded-lg">
 <div class="flex items-center gap-3 text-sm text-on-surface-variant">
-<span class="material-symbols-outlined text-primary text-xl" data-icon="verified_user">verified_user</span>
+<span class="material-symbols-outlined text-primary text-xl">verified_user</span>
 <span>Thanh toán an toàn 100%</span>
 </div>
 <div class="flex items-center gap-3 text-sm text-on-surface-variant">
-<span class="material-symbols-outlined text-primary text-xl" data-icon="local_shipping">local_shipping</span>
+<span class="material-symbols-outlined text-primary text-xl">local_shipping</span>
 <span>Giao hàng nhanh toàn quốc</span>
 </div>
 </div>
 </div>
 </div>
 </div>
+
 </main>
+
 <footer th:replace="~{fragments/layout :: footer}"></footer>
-</body></html>
+
+<!-- Vue.js Cart Application -->
+<script>
+const { createApp } = Vue;
+
+createApp({
+    data() {
+        return {
+            items: [],
+            total: 0,
+            itemCount: 0,
+            loading: true,
+            updating: false,
+            message: '',
+            messageType: 'success'
+        };
+    },
+    mounted() {
+        this.loadCart();
+    },
+    methods: {
+        async loadCart() {
+            try {
+                this.loading = true;
+                const response = await axios.get('/api/cart');
+                if (response.data.success) {
+                    this.items = response.data.data.items;
+                    this.total = response.data.data.total;
+                    this.itemCount = response.data.data.itemCount;
+                }
+            } catch (error) {
+                this.showMessage('Không thể tải giỏ hàng', 'error');
+            } finally {
+                this.loading = false;
+            }
+        },
+
+        async updateQty(productId, quantity) {
+            if (quantity < 1) return;
+            try {
+                this.updating = true;
+                const response = await axios.put('/api/cart/update', null, {
+                    params: { productId, quantity }
+                });
+                if (response.data.success) {
+                    this.items = response.data.data.items;
+                    this.total = response.data.data.total;
+                    this.itemCount = response.data.data.itemCount;
+                    this.updateHeaderCartBadge();
+                }
+            } catch (error) {
+                this.showMessage('Không thể cập nhật số lượng', 'error');
+            } finally {
+                this.updating = false;
+            }
+        },
+
+        async removeItem(productId) {
+            try {
+                this.updating = true;
+                const response = await axios.delete('/api/cart/remove', {
+                    params: { productId }
+                });
+                if (response.data.success) {
+                    this.items = response.data.data.items;
+                    this.total = response.data.data.total;
+                    this.itemCount = response.data.data.itemCount;
+                    this.showMessage(response.data.message, 'success');
+                    this.updateHeaderCartBadge();
+                }
+            } catch (error) {
+                this.showMessage('Không thể xóa sản phẩm', 'error');
+            } finally {
+                this.updating = false;
+            }
+        },
+
+        formatPrice(value) {
+            if (value == null) return '0';
+            return new Intl.NumberFormat('vi-VN').format(value);
+        },
+
+        showMessage(msg, type) {
+            this.message = msg;
+            this.messageType = type;
+            setTimeout(() => { this.message = ''; }, 3000);
+        },
+
+        updateHeaderCartBadge() {
+            const badge = document.querySelector('header .bg-primary.text-white');
+            if (badge) {
+                if (this.itemCount > 0) {
+                    badge.textContent = this.itemCount;
+                    badge.style.display = '';
+                } else {
+                    badge.style.display = 'none';
+                }
+            }
+        }
+    }
+}).mount('#cart-app');
+</script>
+</body>
+</html>

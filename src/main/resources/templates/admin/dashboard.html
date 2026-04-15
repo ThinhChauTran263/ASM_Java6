@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Admin Dashboard')}"></head>
+<body class="bg-surface min-h-screen">
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+
+<!-- Admin Navigation -->
+<header class="fixed top-0 w-full z-50 bg-slate-900 shadow-lg">
+<nav class="flex justify-between items-center w-full px-8 py-4 max-w-[1440px] mx-auto">
+    <div class="flex items-center gap-8">
+        <a class="text-xl font-extrabold tracking-tighter text-white font-headline" th:href="@{/admin/dashboard}">
+            <span class="material-symbols-outlined align-middle mr-1">admin_panel_settings</span>
+            Admin Panel
+        </a>
+        <div class="hidden md:flex gap-6 text-sm font-medium">
+            <a class="text-white border-b-2 border-white pb-0.5" th:href="@{/admin/dashboard}">Dashboard</a>
+            <a class="text-slate-300 hover:text-white transition-colors" th:href="@{/admin/users}">Users</a>
+            <a class="text-slate-300 hover:text-white transition-colors" th:href="@{/admin/products}">Products</a>
+            <a class="text-slate-300 hover:text-white transition-colors" th:href="@{/admin/orders}">Orders</a>
+        </div>
+    </div>
+    <div class="flex items-center gap-4">
+        <a th:href="@{/home}" class="text-sm text-slate-300 hover:text-white transition-colors">
+            <span class="material-symbols-outlined align-middle mr-1">storefront</span>View Store
+        </a>
+        <form th:action="@{/logout}" method="post" class="inline">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <button type="submit" class="text-sm text-slate-300 hover:text-red-400 transition-colors">
+                <span class="material-symbols-outlined align-middle mr-1">logout</span>Logout
+            </button>
+        </form>
+    </div>
+</nav>
+</header>
+
+<div id="dashboardApp">
+<main class="pt-24 pb-12 px-8 max-w-7xl mx-auto">
+    <h1 class="text-3xl font-extrabold text-slate-900 font-headline mb-8">Tổng quan</h1>
+
+    <!-- Summary Stats Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+        <!-- Total Revenue -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Doanh thu</p>
+                    <p class="text-2xl font-bold text-slate-900 mt-1" th:text="${#numbers.formatDecimal(totalRevenue, 0, 'COMMA', 0, 'POINT')} + ' ₫'">0 ₫</p>
+                </div>
+                <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+                    <span class="material-symbols-outlined text-emerald-600">payments</span>
+                </div>
+            </div>
+        </div>
+        <!-- Total Orders -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Đơn hàng</p>
+                    <p class="text-2xl font-bold text-slate-900 mt-1" th:text="${totalOrders}">0</p>
+                </div>
+                <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
+                    <span class="material-symbols-outlined text-orange-600">shopping_cart</span>
+                </div>
+            </div>
+            <a th:href="@{/admin/orders}" class="text-xs text-primary hover:underline mt-3 inline-block">Xem tất cả &rarr;</a>
+        </div>
+        <!-- Total Users -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Người dùng</p>
+                    <p class="text-2xl font-bold text-slate-900 mt-1" th:text="${totalUsers}">0</p>
+                </div>
+                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                    <span class="material-symbols-outlined text-blue-600">group</span>
+                </div>
+            </div>
+            <a th:href="@{/admin/users}" class="text-xs text-primary hover:underline mt-3 inline-block">Xem tất cả &rarr;</a>
+        </div>
+        <!-- Total Products -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Sản phẩm</p>
+                    <p class="text-2xl font-bold text-slate-900 mt-1" th:text="${totalProducts}">0</p>
+                </div>
+                <div class="w-12 h-12 bg-violet-100 rounded-xl flex items-center justify-center">
+                    <span class="material-symbols-outlined text-violet-600">inventory_2</span>
+                </div>
+            </div>
+            <a th:href="@{/admin/products}" class="text-xs text-primary hover:underline mt-3 inline-block">Xem tất cả &rarr;</a>
+        </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-1 gap-8">
+        <!-- Revenue Chart -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <h2 class="text-lg font-bold text-slate-800 font-headline">
+                    <span class="material-symbols-outlined align-middle mr-1 text-emerald-600">payments</span>
+                    Thống kê doanh thu
+                </h2>
+                <div class="flex items-center gap-2">
+                    <div class="flex bg-slate-100 rounded-lg p-0.5">
+                        <button @click="revenuePeriod='day'; loadChart('revenue')"
+                                :class="revenuePeriod==='day' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500 hover:text-slate-700'"
+                                class="px-3 py-1.5 text-xs font-semibold rounded-md transition-all">Ngày</button>
+                        <button @click="revenuePeriod='month'; loadChart('revenue')"
+                                :class="revenuePeriod==='month' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500 hover:text-slate-700'"
+                                class="px-3 py-1.5 text-xs font-semibold rounded-md transition-all">Tháng</button>
+                        <button @click="revenuePeriod='year'; loadChart('revenue')"
+                                :class="revenuePeriod==='year' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500 hover:text-slate-700'"
+                                class="px-3 py-1.5 text-xs font-semibold rounded-md transition-all">Năm</button>
+                    </div>
+                    <div class="flex bg-slate-100 rounded-lg p-0.5">
+                        <button @click="revenueChartType='line'; rebuildChart('revenue')"
+                                :class="revenueChartType==='line' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500 hover:text-slate-700'"
+                                class="px-2.5 py-1.5 text-xs rounded-md transition-all">
+                            <span class="material-symbols-outlined text-base align-middle">show_chart</span>
+                        </button>
+                        <button @click="revenueChartType='bar'; rebuildChart('revenue')"
+                                :class="revenueChartType==='bar' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500 hover:text-slate-700'"
+                                class="px-2.5 py-1.5 text-xs rounded-md transition-all">
+                            <span class="material-symbols-outlined text-base align-middle">bar_chart</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="relative h-72">
+                <canvas id="revenueChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Orders + Users Charts in 2-col grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Orders Chart -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                    <h2 class="text-lg font-bold text-slate-800 font-headline">
+                        <span class="material-symbols-outlined align-middle mr-1 text-orange-600">shopping_cart</span>
+                        Đơn hàng
+                    </h2>
+                    <div class="flex items-center gap-2">
+                        <div class="flex bg-slate-100 rounded-lg p-0.5">
+                            <button @click="ordersPeriod='day'; loadChart('orders')"
+                                    :class="ordersPeriod==='day' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500'"
+                                    class="px-2.5 py-1 text-xs font-semibold rounded-md transition-all">Ngày</button>
+                            <button @click="ordersPeriod='month'; loadChart('orders')"
+                                    :class="ordersPeriod==='month' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500'"
+                                    class="px-2.5 py-1 text-xs font-semibold rounded-md transition-all">Tháng</button>
+                            <button @click="ordersPeriod='year'; loadChart('orders')"
+                                    :class="ordersPeriod==='year' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500'"
+                                    class="px-2.5 py-1 text-xs font-semibold rounded-md transition-all">Năm</button>
+                        </div>
+                        <div class="flex bg-slate-100 rounded-lg p-0.5">
+                            <button @click="ordersChartType='line'; rebuildChart('orders')"
+                                    :class="ordersChartType==='line' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500'"
+                                    class="px-2 py-1 text-xs rounded-md transition-all">
+                                <span class="material-symbols-outlined text-base align-middle">show_chart</span>
+                            </button>
+                            <button @click="ordersChartType='bar'; rebuildChart('orders')"
+                                    :class="ordersChartType==='bar' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500'"
+                                    class="px-2 py-1 text-xs rounded-md transition-all">
+                                <span class="material-symbols-outlined text-base align-middle">bar_chart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative h-64">
+                    <canvas id="ordersChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Users Chart -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                    <h2 class="text-lg font-bold text-slate-800 font-headline">
+                        <span class="material-symbols-outlined align-middle mr-1 text-blue-600">group</span>
+                        Người dùng mới
+                    </h2>
+                    <div class="flex items-center gap-2">
+                        <div class="flex bg-slate-100 rounded-lg p-0.5">
+                            <button @click="usersPeriod='day'; loadChart('users')"
+                                    :class="usersPeriod==='day' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500'"
+                                    class="px-2.5 py-1 text-xs font-semibold rounded-md transition-all">Ngày</button>
+                            <button @click="usersPeriod='month'; loadChart('users')"
+                                    :class="usersPeriod==='month' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500'"
+                                    class="px-2.5 py-1 text-xs font-semibold rounded-md transition-all">Tháng</button>
+                            <button @click="usersPeriod='year'; loadChart('users')"
+                                    :class="usersPeriod==='year' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500'"
+                                    class="px-2.5 py-1 text-xs font-semibold rounded-md transition-all">Năm</button>
+                        </div>
+                        <div class="flex bg-slate-100 rounded-lg p-0.5">
+                            <button @click="usersChartType='line'; rebuildChart('users')"
+                                    :class="usersChartType==='line' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500'"
+                                    class="px-2 py-1 text-xs rounded-md transition-all">
+                                <span class="material-symbols-outlined text-base align-middle">show_chart</span>
+                            </button>
+                            <button @click="usersChartType='bar'; rebuildChart('users')"
+                                    :class="usersChartType==='bar' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500'"
+                                    class="px-2 py-1 text-xs rounded-md transition-all">
+                                <span class="material-symbols-outlined text-base align-middle">bar_chart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative h-64">
+                    <canvas id="usersChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</div>
+
+<script th:inline="javascript">
+const csrfToken = /*[[${_csrf.token}]]*/ '';
+const csrfHeader = /*[[${_csrf.headerName}]]*/ '';
+
+const { createApp, ref, onMounted, nextTick } = Vue;
+
+createApp({
+    setup() {
+        const revenuePeriod = ref('month');
+        const ordersPeriod = ref('month');
+        const usersPeriod = ref('month');
+
+        const revenueChartType = ref('line');
+        const ordersChartType = ref('bar');
+        const usersChartType = ref('bar');
+
+        const charts = {};
+        const chartData = { revenue: ref([]), orders: ref([]), users: ref([]) };
+
+        const CHART_COLORS = {
+            revenue: { bg: 'rgba(16,185,129,0.15)', border: '#10b981', point: '#059669' },
+            orders:  { bg: 'rgba(249,115,22,0.15)', border: '#f97316', point: '#ea580c' },
+            users:   { bg: 'rgba(59,130,246,0.15)', border: '#3b82f6', point: '#2563eb' }
+        };
+
+        const CHART_LABELS = {
+            revenue: 'Doanh thu (₫)',
+            orders:  'Số đơn hàng',
+            users:   'Người dùng mới'
+        };
+
+        function getPeriod(type) {
+            if (type === 'revenue') return revenuePeriod.value;
+            if (type === 'orders') return ordersPeriod.value;
+            return usersPeriod.value;
+        }
+
+        function getChartType(type) {
+            if (type === 'revenue') return revenueChartType.value;
+            if (type === 'orders') return ordersChartType.value;
+            return usersChartType.value;
+        }
+
+        function buildChartConfig(type, labels, values) {
+            const color = CHART_COLORS[type];
+            const chartType = getChartType(type);
+            const isLine = chartType === 'line';
+            return {
+                type: chartType,
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: CHART_LABELS[type],
+                        data: values,
+                        backgroundColor: isLine ? color.bg : color.bg.replace('0.15', '0.6'),
+                        borderColor: color.border,
+                        borderWidth: isLine ? 2.5 : 0,
+                        pointBackgroundColor: color.point,
+                        pointRadius: isLine ? 4 : 0,
+                        pointHoverRadius: isLine ? 6 : 0,
+                        fill: isLine,
+                        tension: 0.4,
+                        borderRadius: isLine ? 0 : 6,
+                        barPercentage: 0.6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1e293b',
+                            titleFont: { family: 'Inter', size: 12 },
+                            bodyFont: { family: 'Inter', size: 13, weight: '600' },
+                            padding: 12,
+                            cornerRadius: 8,
+                            callbacks: {
+                                label: function(ctx) {
+                                    if (type === 'revenue') {
+                                        return new Intl.NumberFormat('vi-VN').format(ctx.parsed.y) + ' ₫';
+                                    }
+                                    return ctx.parsed.y;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { family: 'Inter', size: 11 }, color: '#94a3b8' }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#f1f5f9' },
+                            ticks: {
+                                font: { family: 'Inter', size: 11 },
+                                color: '#94a3b8',
+                                callback: function(val) {
+                                    if (type === 'revenue') {
+                                        if (val >= 1000000) return (val / 1000000).toFixed(0) + 'M';
+                                        if (val >= 1000) return (val / 1000).toFixed(0) + 'K';
+                                    }
+                                    return val;
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+        }
+
+        async function loadChart(type) {
+            const period = getPeriod(type);
+            try {
+                const res = await axios.get(`/admin/api/stats/${type}?period=${period}`);
+                const data = res.data;
+                chartData[type].value = data;
+                const labels = data.map(d => d.label);
+                const values = data.map(d => d.value);
+                if (charts[type]) {
+                    charts[type].destroy();
+                }
+                await nextTick();
+                const ctx = document.getElementById(type + 'Chart').getContext('2d');
+                charts[type] = new Chart(ctx, buildChartConfig(type, labels, values));
+            } catch (err) {
+                console.error('Failed to load chart:', type, err);
+            }
+        }
+
+        function rebuildChart(type) {
+            const data = chartData[type].value;
+            if (!data || data.length === 0) return;
+            const labels = data.map(d => d.label);
+            const values = data.map(d => d.value);
+            if (charts[type]) {
+                charts[type].destroy();
+            }
+            const ctx = document.getElementById(type + 'Chart').getContext('2d');
+            charts[type] = new Chart(ctx, buildChartConfig(type, labels, values));
+        }
+
+        onMounted(() => {
+            loadChart('revenue');
+            loadChart('orders');
+            loadChart('users');
+        });
+
+        return {
+            revenuePeriod, ordersPeriod, usersPeriod,
+            revenueChartType, ordersChartType, usersChartType,
+            loadChart, rebuildChart
+        };
+    }
+}).mount('#dashboardApp');
+</script>
+
+</body>
+</html>

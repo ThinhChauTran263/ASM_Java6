@@ -1,3 +1,8 @@
+-- Default admin user (password: admin123)
+INSERT INTO users (full_name, email, password, role)
+VALUES ('Admin', 'admin@admin.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'ADMIN')
+ON CONFLICT (email) DO NOTHING;
+
 INSERT INTO categories (name, icon)
 VALUES
     ('Phones', 'smartphone'),

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import poly.edu.asm_final_java6.dto.LoginRequest;
 import poly.edu.asm_final_java6.dto.RegisterRequest;
 import poly.edu.asm_final_java6.entity.User;
+import poly.edu.asm_final_java6.entity.enums.Role;
 import poly.edu.asm_final_java6.repository.UserRepository;
 import poly.edu.asm_final_java6.service.AuthService;
 
@@ -42,6 +43,7 @@ public class AuthServiceImpl implements AuthService {
             .fullName(fullName)
             .email(normalizedEmail)
             .password(passwordEncoder.encode(request.getPassword()))
+            .role(Role.USER)
             .build();
 
         return userRepository.save(user);

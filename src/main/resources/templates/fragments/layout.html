@@ -78,6 +78,10 @@
         },
     }
 </script>
+<!-- Vue.js 3 -->
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<!-- Axios -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <style>
     .material-symbols-outlined {
         font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -107,9 +111,9 @@
 <a class="text-2xl font-extrabold tracking-tighter text-slate-900 dark:text-slate-50 font-headline" th:href="@{/home}">Digital Atelier</a>
 <div class="hidden md:flex gap-8 font-headline tracking-tight text-sm font-medium">
 <a class="text-slate-600 dark:text-slate-400 hover:text-blue-800 transition-colors duration-300" th:href="@{/home}">Trang chủ</a>
-<a class="text-slate-600 dark:text-slate-400 hover:text-blue-800 transition-colors duration-300" href="#">Collections</a>
-<a class="text-slate-600 dark:text-slate-400 hover:text-blue-800 transition-colors duration-300" href="#">Editorial</a>
-<a class="text-slate-600 dark:text-slate-400 hover:text-blue-800 transition-colors duration-300" href="#">About</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-800 transition-colors duration-300" th:href="@{/product-list}">Sản phẩm</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-800 transition-colors duration-300" th:href="@{/orders}" sec:authorize="isAuthenticated()">Đơn hàng</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-800 transition-colors duration-300" th:href="@{/profile}" sec:authorize="isAuthenticated()">Hồ sơ</a>
 </div>
 </div>
 <!-- Search Bar -->
@@ -131,6 +135,9 @@
 </div>
 <!-- Logged-in user menu -->
 <div th:if="${currentUser != null}" class="hidden sm:flex items-center gap-3">
+<a th:if="${currentUser.isAdmin()}" th:href="@{/admin/dashboard}" class="flex items-center gap-1 text-sm font-semibold text-red-600 hover:text-red-800 transition-colors">
+<span class="material-symbols-outlined text-lg">admin_panel_settings</span>Admin
+</a>
 <a th:href="@{/profile}" class="flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-primary transition-colors">
 <span class="material-symbols-outlined text-xl">account_circle</span>
 <span th:text="${currentUser.fullName()}">User</span>

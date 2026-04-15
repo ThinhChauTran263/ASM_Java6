@@ -21,9 +21,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/home", "/login", "/register", "/product/**", "/oauth2/**", "/api/auth/**", "/api/test/**").permitAll()
+                .requestMatchers("/", "/home", "/login", "/register", "/product/**", "/oauth2/**", "/api/auth/**", "/api/test/**", "/api/products/**", "/api/cart/**").permitAll()
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/static/**").permitAll()
                 .requestMatchers("/product", "/product-detail-linked", "/cart", "/cart/**").permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/checkout/**", "/orders/**", "/profile/**").authenticated()
                 .anyRequest().authenticated()
             )
@@ -46,7 +47,14 @@ public class SecurityConfig {
             .logout(logout -> logout
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login?logout")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
                 .permitAll()
+            )
+            .sessionManagement(session -> session
+                .sessionFixation().migrateSession()
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(false)
             )
             .userDetailsService(customUserDetailsService)
             .csrf(csrf -> csrf

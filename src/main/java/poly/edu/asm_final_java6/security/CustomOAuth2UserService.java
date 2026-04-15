@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import poly.edu.asm_final_java6.entity.User;
+import poly.edu.asm_final_java6.entity.enums.Role;
 import poly.edu.asm_final_java6.repository.UserRepository;
 
 @Slf4j
@@ -88,6 +89,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 .imageUrl(picture)
                 .provider(provider)
                 .providerId(providerId)
+                .role(Role.USER)
                 .build();
         User savedUser = userRepository.save(newUser);
         log.info("New user created successfully - ID: {}, Email: {}", savedUser.getId(), savedUser.getEmail());

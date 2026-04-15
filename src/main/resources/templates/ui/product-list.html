@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html class="light" lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Danh sách sản phẩm')}"></head>
+<body class="bg-surface selection:bg-primary-fixed selection:text-primary">
+<header th:replace="~{fragments/layout :: header}"></header>
+<main class="pt-24 pb-20 max-w-[1440px] mx-auto px-8">
+    <!-- Page Header -->
+    <div class="mb-12">
+        <h1 class="text-4xl font-extrabold tracking-tight mb-3">Danh sách sản phẩm</h1>
+        <p class="text-on-surface-variant">Khám phá toàn bộ sản phẩm của chúng tôi với các bộ lọc thông minh</p>
+    </div>
+
+    <!-- Main Content with 2 Columns -->
+    <div class="flex flex-col lg:flex-row gap-12">
+        <!-- Sidebar Filters (25%) -->
+        <aside class="w-full lg:w-1/4">
+            <div class="sticky top-28 space-y-8">
+                <!-- Category Filter -->
+                <div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm">
+                    <h3 class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-6 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm">filter_list</span>
+                        Danh mục sản phẩm
+                    </h3>
+                    <div class="space-y-1">
+                        <a th:href="@{/product-list}" 
+                           th:classappend="${selectedCategoryId == null and keyword == null} ? 'bg-primary-fixed/50 text-primary font-semibold' : 'text-on-secondary-container hover:bg-surface-container'" 
+                           class="group flex items-center justify-between p-4 rounded-xl transition-all">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined">apps</span>
+                                <span>Tất cả</span>
+                            </div>
+                            <span class="material-symbols-outlined text-sm">chevron_right</span>
+                        </a>
+                        <a th:each="cat : ${categories}" 
+                           th:href="@{/product-list(categoryId=${cat.id}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortBy=${sortBy}, sortDir=${sortDir})}" 
+                           th:classappend="${selectedCategoryId != null and selectedCategoryId == cat.id} ? 'bg-primary-fixed/50 text-primary font-semibold' : 'text-on-secondary-container hover:bg-surface-container'" 
+                           class="group flex items-center justify-between p-4 rounded-xl transition-all">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined" th:text="${cat.icon != null ? cat.icon : 'category'}">category</span>
+                                <span th:text="${cat.name}">Category</span>
+                            </div>
+                            <span class="material-symbols-outlined text-sm">chevron_right</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Price Filter -->
+                <div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm">
+                    <h3 class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-6 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm">payments</span>
+                        Lọc theo giá
+                    </h3>
+                    <form method="get" action="/product-list" class="space-y-4">
+                        <input type="hidden" name="categoryId" th:value="${selectedCategoryId}"/>
+                        <input type="hidden" name="keyword" th:value="${keyword}"/>
+                        <input type="hidden" name="sortBy" th:value="${sortBy}"/>
+                        <input type="hidden" name="sortDir" th:value="${sortDir}"/>
+                        
+                        <div>
+                            <label class="text-xs font-medium text-on-surface-variant mb-2 block">Giá tối thiểu (VNĐ)</label>
+                            <input type="number" 
+                                   name="minPrice" 
+                                   th:value="${minPrice}"
+                                   placeholder="0" 
+                                   min="0"
+                                   step="1000"
+                                   class="w-full px-4 py-3 bg-surface-container border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"/>
+                        </div>
+                        
+                        <div>
+                            <label class="text-xs font-medium text-on-surface-variant mb-2 block">Giá tối đa (VNĐ)</label>
+                            <input type="number" 
+                                   name="maxPrice" 
+                                   th:value="${maxPrice}"
+                                   placeholder="100000000" 
+                                   min="0"
+                                   step="1000"
+                                   class="w-full px-4 py-3 bg-surface-container border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"/>
+                        </div>
+                        
+                        <div class="flex gap-2 pt-2">
+                            <button type="submit" 
+                                    class="flex-1 px-4 py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition-all scale-100 active:scale-95">
+                                Áp dụng
+                            </button>
+                            <a th:href="@{/product-list(categoryId=${selectedCategoryId}, keyword=${keyword}, sortBy=${sortBy}, sortDir=${sortDir})}" 
+                               class="px-4 py-3 bg-surface-container text-on-surface-variant font-bold rounded-lg hover:bg-surface-container-high transition-all">
+                                <span class="material-symbols-outlined">refresh</span>
+                            </a>
+                        </div>
+                    </form>
+
+                    <!-- Quick Price Filters -->
+                    <div class="mt-4 pt-4 border-t border-outline-variant">
+                        <p class="text-xs font-medium text-on-surface-variant mb-3">Khoảng giá phổ biến</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a th:href="@{/product-list(categoryId=${selectedCategoryId}, keyword=${keyword}, maxPrice=1000000, sortBy=${sortBy}, sortDir=${sortDir})}" 
+                               class="px-3 py-1.5 text-xs bg-surface-container text-on-surface rounded-full hover:bg-primary hover:text-white transition-all">
+                                &lt; 1 triệu
+                            </a>
+                            <a th:href="@{/product-list(categoryId=${selectedCategoryId}, keyword=${keyword}, minPrice=1000000, maxPrice=5000000, sortBy=${sortBy}, sortDir=${sortDir})}" 
+                               class="px-3 py-1.5 text-xs bg-surface-container text-on-surface rounded-full hover:bg-primary hover:text-white transition-all">
+                                1-5 triệu
+                            </a>
+                            <a th:href="@{/product-list(categoryId=${selectedCategoryId}, keyword=${keyword}, minPrice=5000000, maxPrice=10000000, sortBy=${sortBy}, sortDir=${sortDir})}" 
+                               class="px-3 py-1.5 text-xs bg-surface-container text-on-surface rounded-full hover:bg-primary hover:text-white transition-all">
+                                5-10 triệu
+                            </a>
+                            <a th:href="@{/product-list(categoryId=${selectedCategoryId}, keyword=${keyword}, minPrice=10000000, sortBy=${sortBy}, sortDir=${sortDir})}" 
+                               class="px-3 py-1.5 text-xs bg-surface-container text-on-surface rounded-full hover:bg-primary hover:text-white transition-all">
+                                &gt; 10 triệu
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search Box -->
+                <div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm">
+                    <h3 class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-6 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm">search</span>
+                        Tìm kiếm
+                    </h3>
+                    <form method="get" action="/product-list" class="space-y-4">
+                        <input type="hidden" name="categoryId" th:value="${selectedCategoryId}"/>
+                        <input type="hidden" name="minPrice" th:value="${minPrice}"/>
+                        <input type="hidden" name="maxPrice" th:value="${maxPrice}"/>
+                        <input type="hidden" name="sortBy" th:value="${sortBy}"/>
+                        <input type="hidden" name="sortDir" th:value="${sortDir}"/>
+                        
+                        <input type="text" 
+                               name="keyword" 
+                               th:value="${keyword}"
+                               placeholder="Tìm sản phẩm..." 
+                               class="w-full px-4 py-3 bg-surface-container border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"/>
+                        
+                        <button type="submit" 
+                                class="w-full px-4 py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition-all scale-100 active:scale-95 flex items-center justify-center gap-2">
+                            <span class="material-symbols-outlined">search</span>
+                            Tìm kiếm
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Product Grid (75%) -->
+        <section class="w-full lg:w-3/4">
+            <!-- Toolbar -->
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 p-6 bg-surface-container-lowest rounded-xl shadow-sm">
+                <div>
+                    <p class="text-sm text-on-surface-variant">
+                        Hiển thị <span class="font-bold text-primary" th:text="${products.numberOfElements}">0</span> 
+                        trong tổng số <span class="font-bold text-primary" th:text="${products.totalElements}">0</span> sản phẩm
+                    </p>
+                    <p th:if="${keyword != null}" class="text-xs text-on-surface-variant mt-1">
+                        Kết quả tìm kiếm cho: "<span class="font-semibold" th:text="${keyword}">keyword</span>"
+                    </p>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <span class="text-sm font-medium text-on-surface-variant">Sắp xếp:</span>
+                    <select onchange="window.location.href=this.value" 
+                            class="px-4 py-2 bg-surface-container border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary outline-none cursor-pointer font-medium text-sm">
+                        <option th:selected="${sortBy == 'id' and sortDir == 'desc'}" 
+                                th:value="@{/product-list(categoryId=${selectedCategoryId}, keyword=${keyword}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortBy='id', sortDir='desc')}">
+                            Mới nhất
+                        </option>
+                        <option th:selected="${sortBy == 'price' and sortDir == 'asc'}" 
+                                th:value="@{/product-list(categoryId=${selectedCategoryId}, keyword=${keyword}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortBy='price', sortDir='asc')}">
+                            Giá thấp đến cao
+                        </option>
+                        <option th:selected="${sortBy == 'price' and sortDir == 'desc'}" 
+                                th:value="@{/product-list(categoryId=${selectedCategoryId}, keyword=${keyword}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortBy='price', sortDir='desc')}">
+                            Giá cao đến thấp
+                        </option>
+                        <option th:selected="${sortBy == 'name' and sortDir == 'asc'}" 
+                                th:value="@{/product-list(categoryId=${selectedCategoryId}, keyword=${keyword}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortBy='name', sortDir='asc')}">
+                            Tên A-Z
+                        </option>
+                        <option th:selected="${sortBy == 'name' and sortDir == 'desc'}" 
+                                th:value="@{/product-list(categoryId=${selectedCategoryId}, keyword=${keyword}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortBy='name', sortDir='desc')}">
+                            Tên Z-A
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div th:if="${products.totalElements == 0}" class="text-center py-20">
+                <span class="material-symbols-outlined text-8xl text-outline mb-6 block">inventory_2</span>
+                <h3 class="text-2xl font-bold mb-3">Không tìm thấy sản phẩm nào</h3>
+                <p class="text-on-surface-variant mb-6">Thử điều chỉnh bộ lọc hoặc tìm kiếm với từ khóa khác</p>
+                <a href="/product-list" class="inline-block px-6 py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition-all">
+                    Xem tất cả sản phẩm
+                </a>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+                <div th:each="product : ${products.content}" 
+                     class="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                    <div class="relative aspect-square bg-surface-container overflow-hidden">
+                        <img th:src="${product.image}" 
+                             th:alt="${product.name}" 
+                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"/>
+                        <div th:if="${product.badge != null}" class="absolute top-4 left-4">
+                            <span th:text="${product.badge}" 
+                                  th:classappend="${product.hasDiscount()} ? 'bg-tertiary' : 'bg-primary'" 
+                                  class="text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">
+                                Badge
+                            </span>
+                        </div>
+                        <button class="absolute top-4 right-4 p-2 bg-white/90 backdrop-blur-sm rounded-full text-on-surface-variant hover:text-error hover:bg-white transition-all opacity-0 group-hover:opacity-100">
+                            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">favorite</span>
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <a th:href="@{/product(id=${product.id})}" 
+                               th:text="${product.name}" 
+                               class="font-bold text-lg leading-tight group-hover:text-primary transition-colors line-clamp-2">
+                                Product Name
+                            </a>
+                        </div>
+                        <p th:text="${product.shortDescription}" 
+                           class="text-sm text-on-surface-variant mb-4 line-clamp-2">
+                            Short description
+                        </p>
+                        <div class="flex items-center justify-between mt-auto">
+                            <div th:if="${product.hasDiscount()}" class="flex flex-col">
+                                <span class="text-xs text-on-surface-variant line-through" 
+                                      th:text="${#numbers.formatDecimal(product.originalPrice, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'">
+                                    0 VNĐ
+                                </span>
+                                <span class="text-xl font-extrabold text-primary" 
+                                      th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'">
+                                    0 VNĐ
+                                </span>
+                            </div>
+                            <span th:unless="${product.hasDiscount()}" 
+                                  class="text-xl font-extrabold text-primary" 
+                                  th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'">
+                                0 VNĐ
+                            </span>
+                            <button class="p-2.5 bg-primary-fixed text-primary rounded-full hover:bg-primary hover:text-white transition-all scale-95 active:scale-90">
+                                <span class="material-symbols-outlined">add_shopping_cart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div th:if="${products.totalPages > 1}" class="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a th:if="${!products.first}" 
+                   th:href="@{/product-list(page=${products.number - 1}, categoryId=${selectedCategoryId}, keyword=${keyword}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortBy=${sortBy}, sortDir=${sortDir})}" 
+                   class="px-6 py-3 border-2 border-primary text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition-all flex items-center gap-2">
+                    <span class="material-symbols-outlined">chevron_left</span>
+                    Trang trước
+                </a>
+                
+                <div class="flex items-center gap-2">
+                    <span class="px-4 py-2 text-on-surface-variant font-medium">
+                        Trang <span class="font-bold text-primary" th:text="${products.number + 1}">1</span> 
+                        / <span th:text="${products.totalPages}">1</span>
+                    </span>
+                </div>
+                
+                <a th:if="${!products.last}" 
+                   th:href="@{/product-list(page=${products.number + 1}, categoryId=${selectedCategoryId}, keyword=${keyword}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortBy=${sortBy}, sortDir=${sortDir})}" 
+                   class="px-6 py-3 border-2 border-primary text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition-all flex items-center gap-2">
+                    Trang sau
+                    <span class="material-symbols-outlined">chevron_right</span>
+                </a>
+            </div>
+        </section>
+    </div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

@@ -3,6 +3,7 @@ package poly.edu.asm_final_java6.security;
 import java.io.IOException;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -34,6 +35,14 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
         HttpSession session = request.getSession(false);
         if (session != null) {
             log.info("Session ID: {}", session.getId());
+        }
+        
+        // Redirect admin users to admin dashboard
+        var authorities = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
+        if (authorities.contains("ROLE_ADMIN")) {
+            log.info("Admin user detected, redirecting to /admin/dashboard");
+            getRedirectStrategy().sendRedirect(request, response, "/admin/dashboard");
+            return;
         }
         
         // Check if there's a saved request
